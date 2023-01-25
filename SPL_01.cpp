@@ -4,6 +4,8 @@
 using namespace std;
 int main()
 {
-    printf("Test okk\n");
+    printf("                                      ------Welcome to  LearnPhysics game world-------\n");
+    printf("                                 ---------------------------------------------------------------");
+
     return 0;
 }
