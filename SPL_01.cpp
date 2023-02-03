@@ -73,7 +73,7 @@ double height,acceleration,time,theta,v0,horizontal_distance;
           cleardevice();
           moveto(400,400);
           //line(0,0,500,600);
-          circle(horizontal_distance+100,height+100,30);
+          circle(horizontal_distance+100,height+100,10);
           swapbuffers();
           time+=1.00;
          delay(100);
