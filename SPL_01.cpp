@@ -1,13 +1,43 @@
 #include<bits/stdc++.h>
 #include<graphics.h>
 #include<math.h>
+using namespace std;
+void print_Structure(string first,string second);
 //#define  height_of_projectile(v0,theta,time,aacceleration) ((v0)*sin(theta)*(time)+0.5*(aacceleration)*(time)*(time))
 //#define horizontal_distance_of_projectile(v0,theta,time)  (v0*cos(theta)*time)
-using namespace std;
+
 
 void projectile_Motion()
 {
     printf("Welcome to Dynamics\n");
+    printf("Enter how many parameter you know\n");
+    int Number_of_parameter;
+    double Hmax,H,Rmax,g=-9.8,T,theta,v0,R;
+    H=theta=v0=R=Hmax=Rmax=T=-1;
+    int choice,known;
+
+    scanf("%d",&Number_of_parameter);
+    known=Number_of_parameter;
+    while(known--)
+    {
+        if(v0==-1)
+            print_Structure("1. Initial velocity(m/s)","Press 1");
+         if(theta==-1)
+            print_Structure("2. Angle(with respect to horizontal)","Press 2");
+             scanf("%d",&choice);
+        if(choice==1)
+            scanf("%lf",&v0);
+        else if(choice==2)
+            scanf("%lf",&theta);
+
+    }
+    printf("What do you want to determine\n");
+    print_Structure("1. Maximum horizontal Range(Rmax)","Press 1");
+    print_Structure("2. Maximum Height(Hmax)","Press 2");
+    print_Structure("3. Time to reach Maximum height(T)","Press 3");
+    print_Structure("4. Total Time(2T)","Press 4");
+
+
 
 
 
@@ -29,7 +59,7 @@ void Mechanics()
 }
 void geometrical_Optics()
 {
-    printf("Welcome to Geometrical Optics\n");
+    printf("Welcome to  Optics world\n");
 
 
     return;
@@ -147,7 +177,6 @@ int main()
 
 
 /*
-double height,acceleration,time,theta,v0,horizontal_distance;
 
     int gd=DETECT,gm;
     initgraph(&gd,&gm,"");
@@ -184,8 +213,6 @@ double height,acceleration,time,theta,v0,horizontal_distance;
     getch();
     closegraph();
 */
-
-printf("i am end\n");
 
     return 0;
 }
