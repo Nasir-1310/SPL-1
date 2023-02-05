@@ -3,9 +3,107 @@
 #include<math.h>
 //#define  height_of_projectile(v0,theta,time,aacceleration) ((v0)*sin(theta)*(time)+0.5*(aacceleration)*(time)*(time))
 //#define horizontal_distance_of_projectile(v0,theta,time)  (v0*cos(theta)*time)
-
-
 using namespace std;
+
+void projectile_Motion()
+{
+    printf("Welcome to Dynamics\n");
+
+
+
+    return;
+}
+void vector_Analysis()
+{
+    printf("Welcome to Vector world\n");
+
+
+    return;
+}
+void Mechanics()
+{
+    printf("Welcome to Mechanics\n");
+
+
+    return;
+}
+void geometrical_Optics()
+{
+    printf("Welcome to Geometrical Optics\n");
+
+
+    return;
+}
+
+//printing the interface
+  void print_Structure(string first,string second)
+  {
+      string firstString="*   "+first+"   *";
+      string secondString="*   "+second+"   *";
+      string bigString;
+      if(firstString.length()>=secondString.length())
+      {
+          bigString=firstString;
+          int structureLength=bigString.length();
+          for(int i=0;i<structureLength;i++)
+            printf("*");
+            printf("\n");
+          printf("*");
+          for(int i=0;i<structureLength-2;i++)
+            printf(" ");
+            printf("*");
+            printf("\n");
+            cout<<bigString;
+            for(int i=0;i<structureLength-2;i++)
+                printf(" ");
+            printf("*\n");
+            printf("*   ");
+            cout<<second;
+            int extraSpace=bigString.length()-secondString.length();
+            for(int i=0;i<extraSpace+3;i++)
+                printf(" ");
+            printf("*\n*");
+            for(int i=0;i<structureLength-2;i++)
+                printf(" ");
+                printf("*\n");
+                for(int i=0;i<structureLength;i++)
+                    printf("*");
+            printf("\n");
+
+      }
+      else if(firstString.length()<secondString.length())
+      {
+          bigString=secondString;
+          int structureLength=bigString.length();
+          for(int i=0;i<structureLength;i++)
+            printf("*");
+            printf("\n");
+          printf("*");
+          for(int i=0;i<structureLength-2;i++)
+            printf(" ");
+            printf("*");
+            printf("\n*   ");
+            cout<<first;
+            int extraSpace=bigString.length()-firstString.length();
+            for(int i=0;i<extraSpace+3;i++)
+                printf(" ");
+            printf("*\n*");
+            for(int i=0;i<structureLength-2;i++)
+                printf(" ");
+            printf("*\n");
+            cout<<bigString;
+            printf("\n");
+            printf("*");
+            for(int i=0;i<structureLength-2;i++)
+                printf(" ");
+                printf("*\n");
+                for(int i=0;i<structureLength;i++)
+                    printf("*");
+            printf("\n");
+
+
+  }
+  }
 
 //function of the formula to find the height of the projectile
 double height_of_projectile(double v0,double theta,double time,double acceleration)
@@ -20,32 +118,35 @@ double horizontal_distance_of_projectile(double v0,double theta,double time)
     double horizontal_distance=((v0)*cos(theta)*(time));
     return horizontal_distance;
 }
-void rotate_triangle(int cx,int cy,int h,int w,int angle)
-{
-    double theta=(double)(angle%180)*M_PI/180.00;
-    int dx=h/2;
-    int dy=w/2;
-    int point[8]={ (int)(-dx*cos(theta)-dy*sin(theta)+cx),
-                            (int)(-dx*sin(theta)+dy*cos(theta)+cy),
-                            (int)(dx*cos(theta)-dy*sin(theta)+cx),
-                            (int)  (dx*sin(theta)+dy*cos(theta)+cy),
 
-                            (int)(dx*cos(theta)+dy*sin(theta)+cx),
-                            (int)(dx*sin(theta)-dy*cos(theta)+cy),
-                            (int)(-dx*cos(theta)+dy*sin(theta)+cx),
-                            (int) (-dx*sin(theta)-dy*cos(theta)+cy),
-
-                          };
-        for(int i=0;i<8;i+=2)
-        {
-            line(point[i],point[i+1],point[(i+2)/8],point[(i+3)/8]);
-        }
-}
 int main()
 {
     printf("                                      ------Welcome to  LearnPhysics game world-------\n");
     printf("                                 ---------------------------------------------------------------\n");
 
+   print_Structure("Welcome to LearnPhysics","Press ENTER to begin :");
+   printf("==>>");
+   cin.get();
+   print_Structure("1. Projectile Motion","Press 1" );
+   print_Structure("2. Vector Analysis","Press 2");
+   print_Structure("3. Mechanics","Press 3");
+   print_Structure("4. Geometrical Optics","Press 4");
+   int choice;
+    printf("Choose Your an Option that you want to perform\n");//add more word for highlighting this project
+
+   scanf("%d",&choice);
+   if(choice==1)
+    projectile_Motion();
+   else if(choice==2)
+    vector_Analysis();
+   else if(choice==3)
+    Mechanics();
+   else if(choice==4)
+    geometrical_Optics();
+
+
+
+/*
 double height,acceleration,time,theta,v0,horizontal_distance;
 
     int gd=DETECT,gm;
@@ -80,21 +181,11 @@ double height,acceleration,time,theta,v0,horizontal_distance;
       }
 
 
-/*for(int i=100,j=100;i<=600;i++)
-{
-    cleardevice();
-    circle(i,j,60);
-    if(j>200)
-        j-=2;
-    else j++;
-    swapbuffers();
-    delay(10);
-}*/
     getch();
     closegraph();
+*/
 
-
-
+printf("i am end\n");
 
     return 0;
 }
