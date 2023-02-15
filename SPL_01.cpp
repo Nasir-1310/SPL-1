@@ -64,7 +64,7 @@ void   graph(double v0,double theta,double g)
             ycoordinate=pow((arcy-y-453),2);
             radious=pow((xcoordinate+ycoordinate),0.5);
 
-            arc(arcx,arcy,-0,-180,radious);
+            //arc(arcx,arcy,-0,-180,radious);
             swapbuffers();
             t+=increment;
             delay(60);
@@ -395,13 +395,20 @@ void vector_Analysis()
 
 double conservation_of_momentum(double m1,double u1,double m2,double u2,double v,double m)
 {
-    printf("m1=%lf u1=%lf m2=%lf u2=%lf v=%lf m=%lf\n",m1,u1,m2,u2,v,m);
-    double finalV=((m1*u1)+(m2*u2));
-    printf("m+m is %lf\n",finalV);
-    finalV=finalV-(v*m);
-    printf("m-mv is %lf\n",finalV);
+   // printf("m1=%lf u1=%lf m2=%lf u2=%lf v=%lf m=%lf\n",m1,u1,m2,u2,v,m);
+    print_Structure("Are you want to visualize the graph", "if Yes press 1 Otherwise press 2");
+     int option;
+    scanf("%d",&option);
+    if(option ==1)
+      //  graph();// visualization start
 
-    finalV=finalV/(m1+m2-m);
+
+    double finalV=((m1*u1)+(m2*u2));
+    //printf("m+m is %lf\n",finalV);
+    double finalV=finalV-(v*m);
+    //printf("m-mv is %lf\n",finalV);
+
+   // finalV=finalV/(m1+m2-m);
     printf("v=%lf\n",finalV);
     return finalV;
 }
