@@ -589,6 +589,12 @@ int main()
     printf("==>>");
     cin.get();
 
+
+       printf("This project will help the students who are Secondary and Higher secondary students\n");
+       printf("Now we will start\n");
+       printf("Choice Option that you want to perfrom\n");
+
+
     int task=1;
      int gd=DETECT,gm;
     initgraph(&gd,&gm,"");
