@@ -3,6 +3,9 @@
 #include<math.h>
 #include<conio.h>
 using namespace std;
+
+#define originX 15
+#define originY  450
 void print_Structure(string first,string second);
 double Tmaximum(double v0,double theta,double g);
 double Rmaximum(double v0,double theta,double g);
@@ -29,13 +32,14 @@ void   graph(double v0,double theta,double g)
     }
     else
     {
+        // moveto(originX,originY);
         double Ttotal;
         Ttotal=Tmaximum(2*v0,theta,g);
        // double t_half=Ttotal/2;
         double t=0;
         // int gd=DETECT,gm;
         // initgraph(&gd,&gm,"");
-        double x,y,y1,increment=0.2;
+        double x,y,y1,increment=0.1;
 
         print_Structure("Are you want to show step by step calculation?","If Yes press 1 otherwise press 2");
         int option;
@@ -44,9 +48,11 @@ void   graph(double v0,double theta,double g)
         if(option==1)
             printf("Time(t)\t Horizontal Range(R)\t Height(H)\n");
         double Rmax=Rmaximum(v0,theta,g);
-        double arcx=(((Rmax)/2)+15);
-        double arcy=453,radious;
+
+       // double arcx=(((Rmax)/2)+15);
+       // double arcy=453,radious;
         double xcoordinate,ycoordinate;
+        double line_from=originX,line_to=originY;
 
         while(t<=Ttotal)
         {
@@ -59,13 +65,25 @@ void   graph(double v0,double theta,double g)
                cleardevice();
               //rectangle(60+x,350+y1,90+x,380+y1);
               line(15,453,620,453);
-            circle((x+15),(y1+450),12);
-            xcoordinate=pow((arcx-x-15),2);
-            ycoordinate=pow((arcy-y-453),2);
-            radious=pow((xcoordinate+ycoordinate),0.5);
+            circle((x+originX),(y1+originY),12);
+           // xcoordinate=pow((arcx-x-15),2);
+          //  ycoordinate=pow((arcy-y-453),2);
+          //  radious=pow((xcoordinate+ycoordinate),0.5);
+
+         // if (t == 0) {
+            // Move the pen to the starting point of the curve
+         // moveto(x+originX, y1+originY);
+        //} else {
+            // Draw a line segment from the previous point to the current point
+
+     //   }
 
             //arc(arcx,arcy,-0,-180,radious);
             swapbuffers();
+
+            line(line_from,line_to,x+originX,y1+originY);
+            line_from=originX+x;
+            line_to=originY+y1;
             t+=increment;
             delay(60);
 
@@ -79,7 +97,7 @@ void   graph(double v0,double theta,double g)
         printf("%lf     %lf     %lf\n",Ttotal,x,y);
 
        // rectangle(x+10,,x+30,(y1+400),(y1+380));
-         circle((x+15),(y1+450),12);
+         circle((x+originX),(y1+originY),12);
        // rectangle(60+x,350+y1,90+x,380+y1);
           line(15,453,400,453);
 
@@ -598,6 +616,8 @@ int main()
     int task=1;
      int gd=DETECT,gm;
     initgraph(&gd,&gm,"");
+
+    setcolor(YELLOW);            //color for the graph
     while(task){
     print_Structure("1. Projectile Motion","Press 1" );
     print_Structure("2. Vector Analysis","Press 2");
