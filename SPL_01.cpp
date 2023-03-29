@@ -366,6 +366,18 @@ void vector_Analysis()
     print_Structure("Angle among with resultant velocity and flow","Press->>2");
     print_Structure("Both Resultant velocity and angle","Press->>3");
 
+    //last midified  29/03/23
+    print_Structure("Are you want visualize graphically?","If yes press 1 else press 2");
+    printf("\n");
+    int choice;
+    scanf("%d",&choice);
+    if(choice==1)
+    {
+        vector_graph();
+    }
+
+
+
     int operation;
     scanf("%d",&operation);
      if(operation==1)
