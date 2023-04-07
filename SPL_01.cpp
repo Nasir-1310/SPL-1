@@ -6,10 +6,13 @@ using namespace std;
 
 #define originX 15
 #define originY  450
+double m1,m2,u1,u2,v1,v2;
 void print_Structure(string first,string second);
 double Tmaximum(double v0,double theta,double g);
 double Rmaximum(double v0,double theta,double g);
 double Hmaximum(double v0,double theta,double g);
+double conservation_of_momentum(double m1,double u1,double m2,double u2,double v,double m);
+
 
 
 void   graph(double v0,double theta,double g)
@@ -373,7 +376,7 @@ void vector_Analysis()
     scanf("%d",&choice);
     if(choice==1)
     {
-        vector_graph();
+       // vector_graph();
     }
 
 
@@ -423,23 +426,143 @@ void vector_Analysis()
     return;
 }
 
+
+void graph_for_mechanics(double m1,double u1,double m2,double u2,double m,double v,double finalV)
+{
+
+          double time_increment=0.1,time=0,distance1,distance2,distance,distance1_after_collition=0,distance2_after_collition=0;
+          double time_after_collition=0;
+          printf("Enter distance between two object\n");
+           scanf("%lf",&distance);
+           if(m1==m2)
+              distance=distance-40;
+           else
+            distance=distance-35;
+           double time_needed_to_collition=distance/(u1-u2);
+
+
+
+
+
+          while(time<50)
+          {
+
+
+               line(originX,originY,originX+600,originY);
+               cleardevice();
+            if(time<=time_needed_to_collition)
+            {
+                // line(originX,originY,originX+600,originY);
+                 distance1=u1*time;
+                 distance2=u2*time;
+                  line(originX,originY,originX+600,originY);
+                  if(m1>m2)
+                  {
+                 circle(originX+distance1,originY-20,20);
+                 circle(originX+distance2+distance,originY-15,15);
+                  }
+                  else if (m1<m2)
+                  {
+                       circle(originX+distance1,originY-15,15);
+                       circle(originX+distance2+distance,originY-20,20);
+                  }
+                  else
+                  {
+                       circle(originX+distance1,originY-20,20);
+                       circle(originX+distance2+distance,originY-20,20);
+                  }
+                 time+=time_increment;
+
+        }
+        else
+            {
+                distance1_after_collition=v*time_after_collition;
+                distance2_after_collition=finalV*time_after_collition;
+                line(originX,originY,originX+600,originY);
+                if(m1>m2)
+                  {
+                 circle(originX+distance1+distance1_after_collition,originY-20,20);
+                 circle(originX+distance2+distance+distance2_after_collition,originY-15,15);
+                  }
+                  else if (m1<m2)
+                  {
+                       circle(originX+distance1+distance1_after_collition,originY-15,15);
+                       circle(originX+distance2+distance+distance2_after_collition,originY-20,20);
+                  }
+                  else
+                  {
+                       circle(originX+distance1+distance1_after_collition,originY-20,20);
+                       circle(originX+distance2+distance+distance2_after_collition,originY-20,20);
+                  }
+
+
+                time_after_collition+=time_increment;
+                time+=time_increment;
+                    }
+
+
+
+
+
+               swapbuffers();
+               delay(10);
+
+
+
+                    }
+
+line(originX,originY,originX+600,originY);
+           return;
+
+     }
+
+
+//Graph for conservation of momentum
+ void graphcal_representation_of_mechanics( double m1,double u1,double m2,double u2,double m,double v,double finalV)
+ {
+     if(m1>0 and m2>0   and u1>=0 and u2>=0 )
+     {
+         // first object's final velocity given
+         if(m1==m)
+         {
+             graph_for_mechanics(m1, u1, m2, u2, m, v, finalV);
+
+
+         }
+         //second object final velocity given
+         else
+         {
+            graph_for_mechanics(m1,u1,m2,u2,m,finalV,v);
+         }
+
+    }
+
+ }
 double conservation_of_momentum(double m1,double u1,double m2,double u2,double v,double m)
 {
    // printf("m1=%lf u1=%lf m2=%lf u2=%lf v=%lf m=%lf\n",m1,u1,m2,u2,v,m);
-    print_Structure("Are you want to visualize the graph", "if Yes press 1 Otherwise press 2");
-     int option;
-    scanf("%d",&option);
-    if(option ==1)
-      //  graph();// visualization start
+    int option;
+    double finalV;
+
+   // if(m1>0 && >0 && m>0 && v>)
 
 
-    double finalV=((m1*u1)+(m2*u2));
-    //printf("m+m is %lf\n",finalV);
-    double finalV=finalV-(v*m);
+
+    finalV=((m1*u1)+(m2*u2));
+   // printf("m+m is %lf\n",finalV);
+     finalV=finalV-(v*m);
     //printf("m-mv is %lf\n",finalV);
 
-   // finalV=finalV/(m1+m2-m);
+     finalV=finalV/(m1+m2-m);
     printf("v=%lf\n",finalV);
+
+    print_Structure("Are you want to visualize the graph", "if Yes press 1 Otherwise press 2");
+
+    scanf("%d",&option);
+      if(option ==1)
+        graphcal_representation_of_mechanics(m1,u1,m2,u2,m,v,finalV);// visualization start
+
+
     return finalV;
 }
 
@@ -448,7 +571,7 @@ void Mechanics()
 {
     print_Structure("Welcome to Newtonian Mechanics ! Here you will be able to solve to related question of conservation of Momentum"," ");
 
-    double m1,m2,u1,u2,v1,v2;
+
      double p=u2;
     m1=u1=m2=u2=v1=v2=-1;
       int choice;
@@ -509,6 +632,7 @@ void Mechanics()
 
     }
     double finalV;
+    print_Structure("Formula used","m1*u1+m2*u2 = m1*v1+m2*v2");
     if(v1==-1)
     {
          finalV=conservation_of_momentum(m1,u1,m2,u2,v2,m2);
@@ -677,6 +801,23 @@ int main()
 1
 1
 2
+
+
+3
+5
+1
+20
+2
+25
+3
+15
+4
+16
+5
+15
+1
+100
+
 */
 
 
