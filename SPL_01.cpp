@@ -520,7 +520,7 @@ line(originX,originY,originX+600,originY);
 //Graph for conservation of momentum
  void graphcal_representation_of_mechanics( double m1,double u1,double m2,double u2,double m,double v,double finalV)
  {
-     if(m1>0 and m2>0   and u1>=0 and u2>=0 )
+     if(u1>=0 and u2>=0 )
      {
          // first object's final velocity given
          if(m1==m)
@@ -538,15 +538,18 @@ line(originX,originY,originX+600,originY);
     }
 
  }
+
+
+
+ //start of Mechanics
 double conservation_of_momentum(double m1,double u1,double m2,double u2,double v,double m)
 {
    // printf("m1=%lf u1=%lf m2=%lf u2=%lf v=%lf m=%lf\n",m1,u1,m2,u2,v,m);
     int option;
     double finalV;
 
-   // if(m1>0 && >0 && m>0 && v>)
-
-
+   if(m1>0 && m2>0 && m>0)
+       {
 
     finalV=((m1*u1)+(m2*u2));
    // printf("m+m is %lf\n",finalV);
@@ -554,14 +557,24 @@ double conservation_of_momentum(double m1,double u1,double m2,double u2,double v
     //printf("m-mv is %lf\n",finalV);
 
      finalV=finalV/(m1+m2-m);
-    printf("v=%lf\n",finalV);
+     if(m==m1)
+     {
+         printf("Final velocity of The 2nd object is %lf\n",finalV);
 
+     }
+     else
+     {
+         printf("Final velocity of The 1st object is %lf\n",finalV);
+     }
+
+    print_Structure("Formula used","m1*u1+m2*u2 = m1*v1+m2*v2");
     print_Structure("Are you want to visualize the graph", "if Yes press 1 Otherwise press 2");
 
     scanf("%d",&option);
       if(option ==1)
         graphcal_representation_of_mechanics(m1,u1,m2,u2,m,v,finalV);// visualization start
 
+       }
 
     return finalV;
 }
@@ -632,7 +645,7 @@ void Mechanics()
 
     }
     double finalV;
-    print_Structure("Formula used","m1*u1+m2*u2 = m1*v1+m2*v2");
+
     if(v1==-1)
     {
          finalV=conservation_of_momentum(m1,u1,m2,u2,v2,m2);
