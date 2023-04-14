@@ -427,18 +427,28 @@ void vector_Analysis()
 }
 
 
-void graph_for_mechanics(double m1,double u1,double m2,double u2,double m,double v,double finalV)
+void  graph_for_mechanics_when_both_are_positioce_X_axis(double m1,double u1,double m2,double u2,double m,double v,double finalV)
 {
 
-          double time_increment=0.1,time=0,distance1,distance2,distance,distance1_after_collition=0,distance2_after_collition=0;
-          double time_after_collition=0;
+          double time_increment=0.1,time=0,distance1,distance2,distance,distance1_after_collision=0,distance2_after_collision=0;
+          double time_after_collision=0, time_needed_to_collision=0;
+;
           printf("Enter distance between two object\n");
            scanf("%lf",&distance);
            if(m1==m2)
-              distance=distance-40;
+           {
+                //distance=distance-40;
+                  time_needed_to_collision=(distance-40)/(u1-u2);
+
+           }
+
            else
-            distance=distance-35;
-           double time_needed_to_collition=distance/(u1-u2);
+           {
+               //distance=distance-35;
+               time_needed_to_collision=(distance-35)/(u1-u2);
+
+           }
+
 
 
 
@@ -450,7 +460,7 @@ void graph_for_mechanics(double m1,double u1,double m2,double u2,double m,double
 
                line(originX,originY,originX+600,originY);
                cleardevice();
-            if(time<=time_needed_to_collition)
+            if(time<=time_needed_to_collision)
             {
                 // line(originX,originY,originX+600,originY);
                  distance1=u1*time;
@@ -476,29 +486,29 @@ void graph_for_mechanics(double m1,double u1,double m2,double u2,double m,double
         }
         else
             {
-                distance1_after_collition=v*time_after_collition;
-                distance2_after_collition=finalV*time_after_collition;
+                distance1_after_collision=v*time_after_collision;
+                distance2_after_collision=finalV*time_after_collision;
                 line(originX,originY,originX+600,originY);
                 if(m1>m2)
                   {
-                 circle(originX+distance1+distance1_after_collition,originY-20,20);
-                 circle(originX+distance2+distance+distance2_after_collition,originY-15,15);
+                 circle(originX+distance1+distance1_after_collision,originY-20,20);
+                 circle(originX+distance2+distance+distance2_after_collision,originY-15,15);
                   }
                   else if (m1<m2)
                   {
-                       circle(originX+distance1+distance1_after_collition,originY-15,15);
-                       circle(originX+distance2+distance+distance2_after_collition,originY-20,20);
+                       circle(originX+distance1+distance1_after_collision,originY-15,15);
+                       circle(originX+distance2+distance+distance2_after_collision,originY-20,20);
                   }
                   else
                   {
-                       circle(originX+distance1+distance1_after_collition,originY-20,20);
-                       circle(originX+distance2+distance+distance2_after_collition,originY-20,20);
+                       circle(originX+distance1+distance1_after_collision,originY-20,20);
+                       circle(originX+distance2+distance+distance2_after_collision,originY-20,20);
                   }
 
 
-                time_after_collition+=time_increment;
+                time_after_collision+=time_increment;
                 time+=time_increment;
-                    }
+            }
 
 
 
@@ -525,17 +535,22 @@ line(originX,originY,originX+600,originY);
          // first object's final velocity given
          if(m1==m)
          {
-             graph_for_mechanics(m1, u1, m2, u2, m, v, finalV);
+             graph_for_mechanics_when_both_are_positioce_X_axis(m1, u1, m2, u2, m, v, finalV);
 
 
          }
          //second object final velocity given
          else
          {
-            graph_for_mechanics(m1,u1,m2,u2,m,finalV,v);
+             graph_for_mechanics_when_both_are_positioce_X_axis(m1,u1,m2,u2,m,finalV,v);
          }
 
     }
+
+   // else if ( )
+   // {
+
+   // }
 
  }
 
@@ -550,34 +565,45 @@ double conservation_of_momentum(double m1,double u1,double m2,double u2,double v
 
    if(m1>0 && m2>0 && m>0)
        {
+           if(u1<=u2 and u1>=0 and u2>=0)
+           {
+               printf("No collision\n");
+           }
+          else
+          {
 
-    finalV=((m1*u1)+(m2*u2));
-   // printf("m+m is %lf\n",finalV);
-     finalV=finalV-(v*m);
-    //printf("m-mv is %lf\n",finalV);
 
-     finalV=finalV/(m1+m2-m);
-     if(m==m1)
-     {
-         printf("Final velocity of The 2nd object is %lf\n",finalV);
+                 finalV=((m1*u1)+(m2*u2));
+                // printf("m+m is %lf\n",finalV);
+                 finalV=finalV-(v*m);
+              //printf("m-mv is %lf\n",finalV);
 
-     }
-     else
-     {
-         printf("Final velocity of The 1st object is %lf\n",finalV);
-     }
+               finalV=finalV/(m1+m2-m);
+               if(m==m1)
+                    {
+                              printf("Final velocity of The 2nd object is %lf\n",finalV);
 
-    print_Structure("Formula used","m1*u1+m2*u2 = m1*v1+m2*v2");
-    print_Structure("Are you want to visualize the graph", "if Yes press 1 Otherwise press 2");
+                    }
+             else
+                   {
+                          printf("Final velocity of The 1st object is %lf\n",finalV);
+                    }
 
-    scanf("%d",&option);
-      if(option ==1)
-        graphcal_representation_of_mechanics(m1,u1,m2,u2,m,v,finalV);// visualization start
+              print_Structure("Formula used","m1*u1+m2*u2 = m1*v1+m2*v2");
+              print_Structure("Are you want to visualize the graph", "if Yes press 1 Otherwise press 2");
 
-       }
+              scanf("%d",&option);
+                    if(option ==1)
+                           graphcal_representation_of_mechanics(m1,u1,m2,u2,m,v,finalV);// visualization start
 
-    return finalV;
-}
+                 }
+               }
+            else
+                   {
+                      printf("Input parameter is not valid please try again\n");
+                    }
+            return finalV;
+        }
 
 // Function of Mechanics
 void Mechanics()
