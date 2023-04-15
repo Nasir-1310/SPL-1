@@ -436,6 +436,9 @@ void  graph_for_mechanics_when_both_object_direction_in_positive_X_axis_or_towar
 ;
           printf("Enter distance between two object\n");
            scanf("%lf",&distance);
+          if(condition==1)
+          {
+
 
            if(m1==m2)
            {
@@ -544,6 +547,123 @@ void  graph_for_mechanics_when_both_object_direction_in_positive_X_axis_or_towar
 
                     }
 
+
+        }
+
+
+        //condition for -X axis
+    else
+    {
+         if(m1==m2)
+           {
+
+                //condition when there is no collision
+                 if(u2-u1>=0)
+                     {
+                           time_needed_to_collision=MAX_Time;
+                    }
+                    else
+                    {
+                         //distance=distance-40;
+                    time_needed_to_collision=(distance-40)/(-(u2-u1));
+
+                    }
+
+           }
+
+           else
+           {
+               //condition when there is no collision
+                 if(u2-u1>=0)
+                     {
+                           time_needed_to_collision=MAX_Time;
+                    }
+
+
+               else
+               {
+                       //distance=distance-35;
+                      time_needed_to_collision=(distance-35)/(-(u2-u1));
+
+               }
+
+           }
+
+
+
+
+
+
+          while(time<50)
+          {
+
+
+               line(originX,originY,originX+600,originY);
+               cleardevice();
+            if(time<=time_needed_to_collision)
+            {
+                // line(originX,originY,originX+600,originY);
+                 distance1=u1*time;
+                 distance2=u2*time;
+                  line(originX,originY,originX+600,originY);
+                  if(m1>m2)
+                  {
+                 circle(originX+distance1+400,originY-20,20);
+                 circle(originX+distance2+distance+400,originY-15,15);
+                  }
+                  else if (m1<m2)
+                  {
+                       circle(originX+distance1+400,originY-15,15);
+                       circle(originX+distance2+distance+400,originY-20,20);
+                  }
+                  else
+                  {
+                       circle(originX+distance1+400,originY-20,20);
+                       circle(originX+distance2+distance+400,originY-20,20);
+                  }
+                 time+=time_increment;
+
+        }
+        else
+            {
+                distance1_after_collision=v*time_after_collision;
+                distance2_after_collision=finalV*time_after_collision;
+                line(originX,originY,originX+600,originY);
+                if(m1>m2)
+                  {
+                 circle(originX+distance1+distance1_after_collision+400,originY-20,20);
+                 circle(originX+distance2+distance+distance2_after_collision+400,originY-15,15);
+                  }
+                  else if (m1<m2)
+                  {
+                       circle(originX+distance1+distance1_after_collision+400,originY-15,15);
+                       circle(originX+distance2+distance+distance2_after_collision+400,originY-20,20);
+                  }
+                  else
+                  {
+                       circle(originX+distance1+distance1_after_collision+400,originY-20,20);
+                       circle(originX+distance2+distance+distance2_after_collision+400,originY-20,20);
+                  }
+
+
+                time_after_collision+=time_increment;
+                time+=time_increment;
+            }
+
+
+
+
+
+               swapbuffers();
+               delay(10);
+
+
+
+                    }
+
+    }
+
+
 line(originX,originY,originX+600,originY);
            return;
 
@@ -570,7 +690,7 @@ line(originX,originY,originX+600,originY);
 
     }
 
-else//work for this portion
+else//work for other portion
     {
            if(m1==m)
          {
@@ -598,7 +718,7 @@ double conservation_of_momentum(double m1,double u1,double m2,double u2,double v
 
    if(m1>0 && m2>0 && m>0)
        {
-           if((u1<=u2 and u1>=0 and u2>=0) || (u1<=0 and u2>=0))
+           if((u1<=u2 and u1>=0 and u2>=0) || (u1<=u2 and u1<0 and u2<=0))
 
                printf("No collision\n");
 
