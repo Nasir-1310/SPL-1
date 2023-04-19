@@ -303,6 +303,20 @@ void projectile_Motion()
 }
 
 
+///////////////////////////////////////////////////////////
+// Function for visualization of vector analysis
+void  vector_graph(double vBoat,double vFLow,double alpha)
+{
+    if(vBoat<=0 and vFlow>=0 and alpha>0)
+    {
+        printf("Can't Cross The rives!Please try again\n");
+
+    }
+
+}
+
+
+
 //Function for Resultant velocity of boat
 double R_resultant(double vBoat,double vFlow,double alpha)
 {
@@ -369,6 +383,8 @@ void vector_Analysis()
     print_Structure("Resultant velocity of a Boat"," Press ->>1");
     print_Structure("Angle among with resultant velocity and flow","Press->>2");
     print_Structure("Both Resultant velocity and angle","Press->>3");
+      int operation;
+    scanf("%d",&operation);
 
     //last midified  29/03/23
     print_Structure("Are you want visualize graphically?","If yes press 1 else press 2");
@@ -377,13 +393,12 @@ void vector_Analysis()
     scanf("%d",&choice);
     if(choice==1)
     {
-       // vector_graph();
+          vector_graph(vBoat,vFLow,alpha);
     }
 
 
 
-    int operation;
-    scanf("%d",&operation);
+
      if(operation==1)
     {
         R= R_resultant(vBoat,vFlow,alpha);
