@@ -307,11 +307,22 @@ void projectile_Motion()
 // Function for visualization of vector analysis
 void  vector_graph(double vBoat,double vFlow,double alpha)
 {
-    if(vBoat<=0 and vFlow>=0 and alpha>0)
+    if(vBoat<0 || vFow<0 || alpha<0)
+    {
+        printf("Invalid Information! please try again later\n");
+    }
+   else if(vBoat<=0 and vFlow>=0 and alpha>0)
     {
         printf("Can't Cross The rives!Please try again\n");
 
     }
+    else
+    {
+        double time_needed_to_cross_the_river=0;
+        double time;
+        time_needed_to_cross_the_river=
+    }
+
 
 }
 
@@ -358,6 +369,7 @@ void vector_Analysis()
             print_Structure("2. Alpha(with respect to flow)","Press 2");
         if(vFlow==-1)
             print_Structure("3. Velocity of Flow","Press 3");
+            print_Structure()//-------------------------------------------------------------------------------------------------------
          int choice;
         scanf("%d",&choice);
         if(choice==1)
@@ -428,6 +440,13 @@ void vector_Analysis()
 
 
         }
+    }
+    int option;
+    print_Structure("Are you want to visualize the graph","If Yes press    1 Otherwise press 2");
+    scanf("%d"&option);
+    if(option==1)
+    {
+        vector_graph(vBoat,vFlow,alpha);
     }
 
 
