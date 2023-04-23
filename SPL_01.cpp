@@ -305,7 +305,7 @@ void projectile_Motion()
 
 ///////////////////////////////////////////////////////////
 // Function for visualization of vector analysis
-void  vector_graph(double vBoat,double vFLow,double alpha)
+void  vector_graph(double vBoat,double vFlow,double alpha)
 {
     if(vBoat<=0 and vFlow>=0 and alpha>0)
     {
@@ -382,19 +382,10 @@ void vector_Analysis()
     printf("What do you want ? choice an option\n");
     print_Structure("Resultant velocity of a Boat"," Press ->>1");
     print_Structure("Angle among with resultant velocity and flow","Press->>2");
-    print_Structure("Both Resultant velocity and angle","Press->>3");
+    print_Structure("Both Resultant velocity and angle between resultant velocity and flow","Press->>3");
       int operation;
     scanf("%d",&operation);
 
-    //last midified  29/03/23
-    print_Structure("Are you want visualize graphically?","If yes press 1 else press 2");
-    printf("\n");
-    int choice;
-    scanf("%d",&choice);
-    if(choice==1)
-    {
-          vector_graph(vBoat,vFLow,alpha);
-    }
 
 
 
@@ -429,7 +420,9 @@ void vector_Analysis()
         {
             Angle=(180*Angle)/M_PI;
 
-        print_Structure("Used formula","R=Pow(p^2+q^2+2*p*q*cas(alpha),0.5) and (tan(theta)=(q*sin(alpha))/(p+q*cos(alpha)) )");
+           print_Structure("Used formula of Resultant velocity","(R=Pow(p^2+q^2+2*p*q*cas(alpha),0.5))");
+           print_Structure("Used formula  for theta","tan(theta)=(q*sin(alpha))/(p+q*cos(alpha))");
+
                 printf("Resultant velocity of Boat is  : %lf\n",R);
                 printf("Angle among Resultant velocity and flow is : %lf\n",Angle);
 
