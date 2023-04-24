@@ -307,7 +307,7 @@ void projectile_Motion()
 // Function for visualization of vector analysis
 void  vector_graph(double vBoat,double vFlow,double alpha)
 {
-    if(vBoat<0 || vFow<0 || alpha<0)
+    if(vBoat<0 || vFlow<0 || alpha<0)
     {
         printf("Invalid Information! please try again later\n");
     }
@@ -320,7 +320,7 @@ void  vector_graph(double vBoat,double vFlow,double alpha)
     {
         double time_needed_to_cross_the_river=0;
         double time;
-        time_needed_to_cross_the_river=
+       // time_needed_to_cross_the_river=
     }
 
 
@@ -354,11 +354,31 @@ double  Angle_of_boat_with_respect_to_flow(double vBoat,double vFlow,double alph
     double theta=atan(value);
     return theta;
 }
+
+
+
+double time_cross_river(double vBoat,double  alpha,double width_of_the_river)
+{
+     double time;
+    if(vBoat>0.0 && alpha>0.0 && width_of_the_river>0.0)
+    {
+     // printf("vBoat=%lf alpha= %lf width=%lf\n",vBoat,alpha,width_of_the_river);
+         time=(width_of_the_river/(vBoat*sin(alpha)));
+
+    }
+    else
+    {
+        printf("Invalid information! please try again\n");
+        return -1;
+
+    }
+    return time;
+}
 //Vector analysis
 void vector_Analysis()
 {
     print_Structure("Welcome to Vector world ! Here you will find solution of your desire problem with visualization"," ");
-    double vBoat=-1,vFlow=-1,alpha=-1,Angle,R;
+    double vBoat=-1,vFlow=-1,alpha=-1,Angle,R,width_of_the_river=-1,time_to_cress_the_river=-1;
     int t;
     printf("\nEnter number of known parameter\n");
     scanf("%d",&t);
@@ -369,7 +389,8 @@ void vector_Analysis()
             print_Structure("2. Alpha(with respect to flow)","Press 2");
         if(vFlow==-1)
             print_Structure("3. Velocity of Flow","Press 3");
-            print_Structure()//-------------------------------------------------------------------------------------------------------
+        if(width_of_the_river==-1)
+            print_Structure("4. Width of the River","Press 4");
          int choice;
         scanf("%d",&choice);
         if(choice==1)
@@ -389,17 +410,25 @@ void vector_Analysis()
             printf("Enter Velocity of Flow\n ");
             scanf("%lf",&vFlow);
         }
-    }
+        else if(choice==4)
+        {
+             printf("Enter the width of the River\n");
+             scanf("%lf",&width_of_the_river);
+        }
+
+
+        }
+
+
 
     printf("What do you want ? choice an option\n");
     print_Structure("Resultant velocity of a Boat"," Press ->>1");
     print_Structure("Angle among with resultant velocity and flow","Press->>2");
     print_Structure("Both Resultant velocity and angle between resultant velocity and flow","Press->>3");
+    print_Structure("Time  to cross the River","Press->>4");
+
       int operation;
     scanf("%d",&operation);
-
-
-
 
 
      if(operation==1)
@@ -441,9 +470,19 @@ void vector_Analysis()
 
         }
     }
+    else if (operation==4)
+    {
+        time_to_cress_the_river=time_cross_river(vBoat, alpha, width_of_the_river);
+        if(time_to_cress_the_river>=0)
+        {
+            printf("Time to cross the river is : %lf\n\n",time_to_cress_the_river);
+        }
+    }
+
+
     int option;
     print_Structure("Are you want to visualize the graph","If Yes press    1 Otherwise press 2");
-    scanf("%d"&option);
+    scanf("%d",&option);
     if(option==1)
     {
         vector_graph(vBoat,vFlow,alpha);
