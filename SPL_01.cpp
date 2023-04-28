@@ -203,7 +203,7 @@ double Hmaximum(double v0,double theta,double g)
 void projectile_Motion()
 {
     print_Structure("Welcome to Dynamics world here you will find solution of your desire problem with visualization","  ");
-    print_Structure("Enter number of parameter given below","1)Initial velocity(Vo) 2)Angle(with respect to Horizontal) 3)Time ");
+    print_Structure("Enter number of known parameter given below","1)Initial velocity(Vo) 2)Angle(with respect to Horizontal) 3)Time ");
     int Number_of_parameter;
     double Hmax,H,Rmax,g=9.8,Tmax,theta,v0,R,t;
     H=theta=v0=R=Hmax=Rmax=Tmax=t=-1;
@@ -320,7 +320,78 @@ void  vector_graph(double vBoat,double vFlow,double alpha)
     {
         double time_needed_to_cross_the_river=0;
         double time;
-       // time_needed_to_cross_the_river=
+        time_needed_to_cross_the_river=time_cross_the_river(vBoat,alpha,width_of_the_river);
+        printf("-----------------------------------------------------------------------------------------------------")
+       double time=0;
+         while(time<50)
+          {
+
+
+               line(originX,originY,originX+600,originY);
+               line(originX,originY,originX+600,originY-width_of_the_river);
+               cleardevice();
+        /*    if(time<=time_needed_to_collision)
+            {
+                // line(originX,originY,originX+600,originY);
+                 distance1=u1*time;
+                 distance2=u2*time;
+                  line(originX,originY,originX+600,originY);
+                  if(m1>m2)
+                  {
+                 circle(originX+distance1,originY-20,20);
+                 circle(originX+distance2+distance,originY-15,15);
+                  }
+                  else if (m1<m2)
+                  {
+                       circle(originX+distance1,originY-15,15);
+                       circle(originX+distance2+distance,originY-20,20);
+                  }
+                  else
+                  {
+                       circle(originX+distance1,originY-20,20);
+                       circle(originX+distance2+distance,originY-20,20);
+                  }
+                 time+=time_increment;
+
+        }
+        else
+            {
+                distance1_after_collision=v*time_after_collision;
+                distance2_after_collision=finalV*time_after_collision;
+                line(originX,originY,originX+600,originY);
+                if(m1>m2)
+                  {
+                 circle(originX+distance1+distance1_after_collision,originY-20,20);
+                 circle(originX+distance2+distance+distance2_after_collision,originY-15,15);
+                  }
+                  else if (m1<m2)
+                  {
+                       circle(originX+distance1+distance1_after_collision,originY-15,15);
+                       circle(originX+distance2+distance+distance2_after_collision,originY-20,20);
+                  }
+                  else
+                  {
+                       circle(originX+distance1+distance1_after_collision,originY-20,20);
+                       circle(originX+distance2+distance+distance2_after_collision,originY-20,20);
+                  }
+
+
+                time_after_collision+=time_increment;
+                time+=time_increment;
+            }
+
+*/
+
+
+
+               swapbuffers();
+               delay(10);
+
+
+
+                    }
+
+        printf("-------------------------------------------------------------------------------------------------------")
     }
 
 
@@ -835,7 +906,7 @@ void Mechanics()
     m1=u1=m2=u2=v1=v2=-1;
       int choice;
     int t;
-    print_Structure("Enter number of known parameter from below","1) m1  2) u1  3) m2  4) u2  5) v1  6) v2 ");
+    print_Structure("Enter number of known parameter given below","1) m1  2) u1  3) m2  4) u2  5) v1  6) v2 ");
     scanf("%d",&t);
     while(t--){
         if(m1==-1)
