@@ -203,7 +203,7 @@ double Hmaximum(double v0,double theta,double g)
 void projectile_Motion()
 {
     print_Structure("Welcome to Dynamics world here you will find solution of your desire problem with visualization","  ");
-    printf("Enter how many parameter you know\n");
+    print_Structure("Enter number of parameter given below","1)Initial velocity(Vo) 2)Angle(with respect to Horizontal) 3)Time ");
     int Number_of_parameter;
     double Hmax,H,Rmax,g=9.8,Tmax,theta,v0,R,t;
     H=theta=v0=R=Hmax=Rmax=Tmax=t=-1;
@@ -380,7 +380,7 @@ void vector_Analysis()
     print_Structure("Welcome to Vector world ! Here you will find solution of your desire problem with visualization"," ");
     double vBoat=-1,vFlow=-1,alpha=-1,Angle,R,width_of_the_river=-1,time_to_cress_the_river=-1;
     int t;
-    printf("\nEnter number of known parameter\n");
+    print_Structure("Enter number of known parameter from below","1)Velocity of Boat(vBoat) 2) Alpha(with respect to flow) 3)Velocity of Flow(vFlow) 4) Width of the River");
     scanf("%d",&t);
     while(t--){
         if(vBoat==-1)
@@ -835,7 +835,7 @@ void Mechanics()
     m1=u1=m2=u2=v1=v2=-1;
       int choice;
     int t;
-    printf("\nEnter number of known parameter\n");
+    print_Structure("Enter number of known parameter from below","1) m1  2) u1  3) m2  4) u2  5) v1  6) v2 ");
     scanf("%d",&t);
     while(t--){
         if(m1==-1)
