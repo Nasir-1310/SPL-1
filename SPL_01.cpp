@@ -442,7 +442,7 @@ double time_cross_river(double vBoat,double  alpha,double width_of_the_river)
 void vector_Analysis()
 {
     print_Structure("Welcome to Vector world ! Here you will find solution of your desire problem with visualization"," ");
-    double vBoat=-1,vFlow=-1,alpha=-1,Angle,R,width_of_the_river=-1,time_to_cress_the_river=-1;
+    double vBoat=-1,vFlow=-1,alpha=-1,Angle,R,width_of_the_river=-1,time_to_cross_the_river=-1;
     int t;
     print_Structure("Enter number of known parameter from below","1)Velocity of Boat(vBoat) 2) Alpha(with respect to flow) 3)Velocity of Flow(vFlow) 4) Width of the River");
     scanf("%d",&t);
@@ -490,6 +490,9 @@ void vector_Analysis()
     print_Structure("Angle among with resultant velocity and flow","Press->>2");
     print_Structure("Both Resultant velocity and angle between resultant velocity and flow","Press->>3");
     print_Structure("Time  to cross the River","Press->>4");
+    print_Structure("Displacement along with X-axis","Press->>5");
+    print_Structure("Shortest Time to cross the River","Press->>6");
+    print_Structure("Shortest Path to cross the River","Press->>7");
 
       int operation;
     scanf("%d",&operation);
@@ -536,11 +539,22 @@ void vector_Analysis()
     }
     else if (operation==4)
     {
-        time_to_cress_the_river=time_cross_river(vBoat, alpha, width_of_the_river);
-        if(time_to_cress_the_river>=0)
+        time_to_cross_the_river=time_cross_river(vBoat, alpha, width_of_the_river);
+        if(time_to_cross_the_river>=0)
         {
-            printf("Time to cross the river is : %lf\n\n",time_to_cress_the_river);
+            printf("Time to cross the river is : %lf\n\n",time_to_cross_the_river);
         }
+    }
+    else if(operation==5)
+    {
+        double x_component,y_component,displacement_x_axis=0;
+        x_component=vFlow+(vBoat*cos(alpha));
+        y_component=vBoat*sin(alpha);
+        time_to_cross_the_river=time_cross_river(vBoat,alpha,width_of_the_river);
+        displacement_x_axis=time_to_cross_the_river*x_component;
+
+        printf("Displacement along with X-axis : %lf\n",displacement_x_axis);
+
     }
 
 
