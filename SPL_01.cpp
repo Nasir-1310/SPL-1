@@ -552,9 +552,29 @@ void vector_Analysis()
         y_component=vBoat*sin(alpha);
         time_to_cross_the_river=time_cross_river(vBoat,alpha,width_of_the_river);
         displacement_x_axis=time_to_cross_the_river*x_component;
+        if(displacement_x_axis>=0)
+        {
+            printf("Displacement along with X-axis : %lf\n",displacement_x_axis);
+        }
+        else
+        {
+            printf("Invalid information please! Try again\n");
+        }
 
-        printf("Displacement along with X-axis : %lf\n",displacement_x_axis);
+    }
 
+    else if(operation==6)
+    {
+        alpha=(90*M_PI/180);
+        time_to_cross_the_river=time_cross_river(vBoat,alpha,width_of_the_river);
+        if(time_to_cross_the_river>=0)
+        {
+            printf("Shortest time : %lf",time_to_cross_the_river);
+        }
+        else
+        {
+            printf("Invalid information please try again!\n");
+        }
     }
 
 
