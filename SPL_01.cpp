@@ -7,6 +7,7 @@ using namespace std;
 #define originX 15
 #define originY  450
 #define MAX_Time 999
+#define time_increment 0.1
 double m1,m2,u1,u2,v1,v2;
 void print_Structure(string first,string second);
 double Tmaximum(double v0,double theta,double g);
@@ -323,17 +324,25 @@ void  vector_graph(double vBoat,double vFlow,double alpha,double width_of_the_ri
         double time_needed_to_cross_the_river=0;
         double time=0;
         time_needed_to_cross_the_river=time_cross_river(vBoat,alpha,width_of_the_river);
-        printf("-----------------------------------------------------------------------------------------------------");
+       // printf("Time to cross river %lf\n",time_needed_to_cross_the_river);
+       // printf("-----------------------------------------------------------------------------------------------------\n");
+        line(originX,originY,originX+600,originY);
+        line(originX,originY-width_of_the_river,originX+600,originY-width_of_the_river);
 
          while(time<50)
           {
 
 
-               line(originX,originY,originX+600,originY);
-               line(originX,originY,originX+600,originY-width_of_the_river);
+                line(originX,originY,originX+600,originY);
+                line(originX,originY-width_of_the_river,originX+600,originY-width_of_the_river);
+
+               // printf("In while\n");
                cleardevice();
+
+                line(originX,originY,originX+600,originY);
+                line(originX,originY-width_of_the_river,originX+600,originY-width_of_the_river);
         /*    if(time<=time_needed_to_collision)
-            {
+                 {
                 // line(originX,originY,originX+600,originY);
                  distance1=u1*time;
                  distance2=u2*time;
@@ -356,36 +365,12 @@ void  vector_graph(double vBoat,double vFlow,double alpha,double width_of_the_ri
                  time+=time_increment;
 
         }
-        else
-            {
-                distance1_after_collision=v*time_after_collision;
-                distance2_after_collision=finalV*time_after_collision;
-                line(originX,originY,originX+600,originY);
-                if(m1>m2)
-                  {
-                 circle(originX+distance1+distance1_after_collision,originY-20,20);
-                 circle(originX+distance2+distance+distance2_after_collision,originY-15,15);
-                  }
-                  else if (m1<m2)
-                  {
-                       circle(originX+distance1+distance1_after_collision,originY-15,15);
-                       circle(originX+distance2+distance+distance2_after_collision,originY-20,20);
-                  }
-                  else
-                  {
-                       circle(originX+distance1+distance1_after_collision,originY-20,20);
-                       circle(originX+distance2+distance+distance2_after_collision,originY-20,20);
-                  }
 
 
-                time_after_collision+=time_increment;
-                time+=time_increment;
-            }
-
-*/
+    */
 
 
-
+           time+=time_increment;
                swapbuffers();
                delay(10);
 
@@ -393,13 +378,16 @@ void  vector_graph(double vBoat,double vFlow,double alpha,double width_of_the_ri
 
                     }
          line(originX,originY,originX+600,originY);
-         line(originX,originY,originX+600,originY-width_of_the_river);
+         line(originX,originY-width_of_the_river,originX+600,originY-width_of_the_river);
 
 
-        printf("-------------------------------------------------------------------------------------------------------");
-    }
+      //  printf("-------------------------------------------------------------------------------------------------------\n");
+      }
 
+     line(originX,originY,originX+600,originY);
+     line(originX,originY-width_of_the_river,originX+600,originY-width_of_the_river);
 
+  return;
 }
 
 
@@ -573,7 +561,7 @@ void vector_Analysis()
 void  graph_for_mechanics_when_both_object_direction_in_positive_X_axis_or_towards(double m1,double u1,double m2,double u2,double m,double v,double finalV,int condition)
 {
 
-          double time_increment=0.1,time=0,distance1,distance2,distance,distance1_after_collision=0,distance2_after_collision=0;
+          double time=0,distance1,distance2,distance,distance1_after_collision=0,distance2_after_collision=0;
           double time_after_collision=0, time_needed_to_collision=0;
 ;
           printf("Enter distance between two object\n");
