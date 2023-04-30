@@ -14,6 +14,8 @@ double Rmaximum(double v0,double theta,double g);
 double Hmaximum(double v0,double theta,double g);
 double conservation_of_momentum(double m1,double u1,double m2,double u2,double v,double m);
 
+double time_cross_river(double vBoat,double  alpha,double width_of_the_river);
+
 
 
 void   graph(double v0,double theta,double g)
@@ -305,7 +307,7 @@ void projectile_Motion()
 
 ///////////////////////////////////////////////////////////
 // Function for visualization of vector analysis
-void  vector_graph(double vBoat,double vFlow,double alpha)
+void  vector_graph(double vBoat,double vFlow,double alpha,double width_of_the_river)
 {
     if(vBoat<0 || vFlow<0 || alpha<0)
     {
@@ -319,10 +321,10 @@ void  vector_graph(double vBoat,double vFlow,double alpha)
     else
     {
         double time_needed_to_cross_the_river=0;
-        double time;
-        time_needed_to_cross_the_river=time_cross_the_river(vBoat,alpha,width_of_the_river);
-        printf("-----------------------------------------------------------------------------------------------------")
-       double time=0;
+        double time=0;
+        time_needed_to_cross_the_river=time_cross_river(vBoat,alpha,width_of_the_river);
+        printf("-----------------------------------------------------------------------------------------------------");
+
          while(time<50)
           {
 
@@ -390,8 +392,11 @@ void  vector_graph(double vBoat,double vFlow,double alpha)
 
 
                     }
+         line(originX,originY,originX+600,originY);
+         line(originX,originY,originX+600,originY-width_of_the_river);
 
-        printf("-------------------------------------------------------------------------------------------------------")
+
+        printf("-------------------------------------------------------------------------------------------------------");
     }
 
 
@@ -556,7 +561,7 @@ void vector_Analysis()
     scanf("%d",&option);
     if(option==1)
     {
-        vector_graph(vBoat,vFlow,alpha);
+        vector_graph(vBoat,vFlow,alpha,width_of_the_river);
     }
 
 
