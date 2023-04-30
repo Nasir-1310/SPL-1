@@ -569,12 +569,40 @@ void vector_Analysis()
         time_to_cross_the_river=time_cross_river(vBoat,alpha,width_of_the_river);
         if(time_to_cross_the_river>=0)
         {
-            printf("Shortest time : %lf",time_to_cross_the_river);
+            printf("Shortest time : %lf\n",time_to_cross_the_river);
         }
         else
         {
             printf("Invalid information please try again!\n");
         }
+    }
+    else if(operation==7)
+    {
+        if(vFlow<0 and vBoat>0)
+        {
+            printf("Velocity of Flow is not given! please try again\n");
+        }
+        else if(vFlow>=0 and vBoat<=0)
+        {
+            printf("Velocity of Boat is not given! please try again\n");
+        }
+        else if(vFlow<=0 and vBoat<=0)
+        {
+            printf("Velocity of Flow and Boat is not given ! please try again\n");
+        }
+        else
+           {
+               if(vBoat<=vFlow)
+               {
+                   printf("Can't cross the river in Shortest path\n");
+               }
+               else{
+               Angle=acos(-vFlow/vBoat);
+               double theta=((Angle*180)/M_PI);
+               printf("To cross the river in Shortest path Angle of Boat with respect to Flow is %lf\n",theta);
+               }
+           }
+
     }
 
 
