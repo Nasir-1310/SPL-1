@@ -61,6 +61,10 @@ void   graph(double v0,double theta,double g)
         double xcoordinate,ycoordinate;
         double line_from=originX,line_to=originY;
 
+        //Arc to show angle
+        double angle_in_degree=((theta*180)/M_PI);
+        arc(originX+20,originY,0,angle_in_degree,50);
+
         while(t<=Ttotal)
         {
 
@@ -71,8 +75,9 @@ void   graph(double v0,double theta,double g)
 
                cleardevice();
               //rectangle(60+x,350+y1,90+x,380+y1);
-              line(15,453,620,453);
-            circle((x+originX),(y1+originY),12);
+            arc(originX+20,originY,0,angle_in_degree,50);
+            line(35,453,620,453);
+            circle((x+originX+20),(y1+originY),12);
            // xcoordinate=pow((arcx-x-15),2);
           //  ycoordinate=pow((arcy-y-453),2);
           //  radious=pow((xcoordinate+ycoordinate),0.5);
@@ -104,9 +109,10 @@ void   graph(double v0,double theta,double g)
         printf("%lf     %lf     %lf\n",Ttotal,x,y);
 
        // rectangle(x+10,,x+30,(y1+400),(y1+380));
-         circle((x+originX),(y1+originY),12);
+        arc(originX+20,originY,0,angle_in_degree,50);
+         circle((x+originX+20),(y1+originY),12);
        // rectangle(60+x,350+y1,90+x,380+y1);
-          line(15,453,400,453);
+          line(35,453,400,453);
 
 
     }
@@ -599,7 +605,7 @@ void vector_Analysis()
                else{
                Angle=acos(-vFlow/vBoat);
                double theta=((Angle*180)/M_PI);
-               printf("To cross the river in Shortest path Angle of Boat with respect to Flow is %lf\n",theta);
+               printf("To cross the river in Shortest path Angle of Boat with respect to Flow(degree): %lf\n",theta);
                }
            }
 
