@@ -4,7 +4,7 @@
 #include<conio.h>
 using namespace std;
 
-#define originX 15
+#define originX 35
 #define originY  450
 #define MAX_Time 999
 #define time_increment 0.1
@@ -63,7 +63,8 @@ void   graph(double v0,double theta,double g)
 
         //Arc to show angle
         double angle_in_degree=((theta*180)/M_PI);
-        arc(originX+20,originY,0,angle_in_degree,50);
+        arc(originX,originY,0,angle_in_degree,50);
+        line(originX,originY,originX+70,originY-(70*atan(theta)));
 
         while(t<=Ttotal)
         {
@@ -75,9 +76,11 @@ void   graph(double v0,double theta,double g)
 
                cleardevice();
               //rectangle(60+x,350+y1,90+x,380+y1);
-            arc(originX+20,originY,0,angle_in_degree,50);
+            arc(originX,originY,0,angle_in_degree,50);
+            line(originX,originY,originX+70,originY-(70*tan(theta)));
+
             line(35,453,620,453);
-            circle((x+originX+20),(y1+originY),12);
+            circle((x+originX),(y1+originY),12);
            // xcoordinate=pow((arcx-x-15),2);
           //  ycoordinate=pow((arcy-y-453),2);
           //  radious=pow((xcoordinate+ycoordinate),0.5);
@@ -109,8 +112,10 @@ void   graph(double v0,double theta,double g)
         printf("%lf     %lf     %lf\n",Ttotal,x,y);
 
        // rectangle(x+10,,x+30,(y1+400),(y1+380));
-        arc(originX+20,originY,0,angle_in_degree,50);
-         circle((x+originX+20),(y1+originY),12);
+        arc(originX,originY,0,angle_in_degree,50);//--------------working-----------------------------
+        line(originX,originY,originX+70,originY-(70*tan(theta)));
+
+         circle((x+originX),(y1+originY),12);
        // rectangle(60+x,350+y1,90+x,380+y1);
           line(35,453,400,453);
 
