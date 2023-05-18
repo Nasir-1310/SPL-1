@@ -1,7 +1,5 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 #include<graphics.h>
-#include<math.h>
-#include<conio.h>
 using namespace std;
 
 #define originX 35
@@ -19,6 +17,8 @@ double time_cross_river(double vBoat,double  alpha,double width_of_the_river);
 
 
 
+
+// Graph for projectile_Motion---------------------------------------------
 void   graph(double v0,double theta,double g)
 {
 
@@ -39,14 +39,14 @@ void   graph(double v0,double theta,double g)
     }
     else
     {
-        // moveto(originX,originY);
+          line(originX,originY,620,originY);
+
         double Ttotal;
         Ttotal=Tmaximum(2*v0,theta,g);
        // double t_half=Ttotal/2;
         double t=0;
-        // int gd=DETECT,gm;
-        // initgraph(&gd,&gm,"");
-        double x,y,y1,increment=0.1;
+
+        double x,y,y1;
 
         print_Structure("Are you want to show step by step calculation?","If Yes press 1 otherwise press 2");
         int option;
@@ -56,17 +56,16 @@ void   graph(double v0,double theta,double g)
             printf("Time(t)\t Horizontal Range(R)\t Height(H)\n");
         double Rmax=Rmaximum(v0,theta,g);
 
-       // double arcx=(((Rmax)/2)+15);
-       // double arcy=453,radious;
+
         double xcoordinate,ycoordinate;
-        double line_from=originX,line_to=originY;
+
 
         //Arc to show angle
         double angle_in_degree=((theta*180)/M_PI);
-        arc(originX,originY,0,angle_in_degree,50);
-        line(originX,originY,originX+70,originY-(70*atan(theta)));
+         arc(originX,originY,0,angle_in_degree,50);
+         line(originX,originY,originX+70,originY-(70*atan(theta)));
 
-        while(t<=Ttotal)
+        while(t<Ttotal)
         {
 
             x=v0*cos(theta)*t;
@@ -75,50 +74,66 @@ void   graph(double v0,double theta,double g)
             y1=-y;
 
                cleardevice();
+
+
+           if(option==1)
+                 printf("%lf     %lf     %lf\n",t,x,y);
               //rectangle(60+x,350+y1,90+x,380+y1);
             arc(originX,originY,0,angle_in_degree,50);
             line(originX,originY,originX+70,originY-(70*tan(theta)));
 
-            line(35,453,620,453);
+            line(originX,originY,620,originY);
             circle((x+originX),(y1+originY),12);
-           // xcoordinate=pow((arcx-x-15),2);
-          //  ycoordinate=pow((arcy-y-453),2);
-          //  radious=pow((xcoordinate+ycoordinate),0.5);
+          //  putpixel(x+originX,y1+originY,WHITE);
 
-         // if (t == 0) {
-            // Move the pen to the starting point of the curve
-         // moveto(x+originX, y1+originY);
-        //} else {
-            // Draw a line segment from the previous point to the current point
 
-     //   }
 
-            //arc(arcx,arcy,-0,-180,radious);
             swapbuffers();
 
-            line(line_from,line_to,x+originX,y1+originY);
-            line_from=originX+x;
-            line_to=originY+y1;
-            t+=increment;
+
+            t+=time_increment;
+             cleardevice();
             delay(60);
 
         }
 
-
         x=v0*cos(theta)*Ttotal;
         y=(v0*sin(theta)*Ttotal)-(0.5*g*Ttotal*Ttotal);
         y1=-y;
+
+
         if(option==1)
         printf("%lf     %lf     %lf\n",Ttotal,x,y);
 
-       // rectangle(x+10,,x+30,(y1+400),(y1+380));
-        arc(originX,originY,0,angle_in_degree,50);//--------------working-----------------------------
-        line(originX,originY,originX+70,originY-(70*tan(theta)));
 
-         circle((x+originX),(y1+originY),12);
-       // rectangle(60+x,350+y1,90+x,380+y1);
-          line(35,453,400,453);
 
+        line(originX,originY,620,originY);
+        //-----printing path-----------------
+
+        t=0;
+        while(t<=Ttotal)
+        {
+
+            x=v0*cos(theta)*t;
+            y=(v0*sin(theta)*t)-(0.5*g*t*t);
+
+            y1=-y;
+           arc(originX,originY,0,angle_in_degree,50);
+            line(originX,originY,originX+70,originY-(70*tan(theta)));
+
+            line(originX,originY,620,originY);
+            circle((x+originX),(y1+originY),2);
+
+            putpixel(x+originX,y1+originY,YELLOW);
+
+            swapbuffers();
+            t+=time_increment;
+            delay(10);
+
+        }
+         arc(originX,originY,0,angle_in_degree,50);
+         line(originX,originY,originX+70,originY-(70*atan(theta)));
+        circle(((v0*cos(theta)*Ttotal)+originX),((-(v0*sin(theta)*Ttotal)-(0.5*g*Ttotal*Ttotal))+originY),12);
 
     }
     return;
@@ -260,7 +275,7 @@ void projectile_Motion()
     print_Structure("2. Maximum Height(Hmax)","Press 2");
     print_Structure("3. Time to reach Maximum height(Tmax)","Press 3");
     print_Structure("4. Total Time(2Tmax)","Press 4");
-    line(10,450,600,450);
+
 
     int operation;
     scanf("%d",&operation);
@@ -630,7 +645,7 @@ void vector_Analysis()
     return;
 }
 
-
+//---------------------------------------------------------------------------------------
 void  graph_for_mechanics_when_both_object_direction_in_positive_X_axis_or_towards(double m1,double u1,double m2,double u2,double m,double v,double finalV,int condition)
 {
 
@@ -963,13 +978,13 @@ double conservation_of_momentum(double m1,double u1,double m2,double u2,double v
         }
 
 // Function of Mechanics
-void Mechanics()
+void mechanics()
 {
     print_Structure("Welcome to Newtonian Mechanics ! Here you will be able to solve to related question of conservation of Momentum"," ");
 
 
-     double p=u2;
-    m1=u1=m2=u2=v1=v2=-1;
+     //double p=u2;
+    double m1=u1=m2=u2=v1=v2=-1;
       int choice;
     int t;
     print_Structure("Enter number of known parameter given below","1) m1  2) u1  3) m2  4) u2  5) v1  6) v2 ");
@@ -1171,7 +1186,7 @@ int main()
     }
     else if(choice==3)
     {
-        Mechanics();
+        mechanics();
     }
     else
     {
