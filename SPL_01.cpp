@@ -347,62 +347,75 @@ void  vector_graph(double vBoat,double vFlow,double alpha,double width_of_the_ri
     }
     else
     {
+        cleardevice();
+        double midOfx=500,midOfy=originY,arrowLength=150,arrow=20;
+        double angle_between_vboat_river_wide=alpha-(M_PI/2);
+        double xcoordianate_According_to_vBoat=midOfx-(width_of_the_river*tan(angle_between_vboat_river_wide));
+        double ycoordinate_According_to_vBoat=midOfy-width_of_the_river;
+
         double time_needed_to_cross_the_river=0;
         double time=0;
         time_needed_to_cross_the_river=time_cross_river(vBoat,alpha,width_of_the_river);
        // printf("Time to cross river %lf\n",time_needed_to_cross_the_river);
        // printf("-----------------------------------------------------------------------------------------------------\n");
-        line(originX,originY,originX+600,originY);
-        line(originX,originY-width_of_the_river,originX+600,originY-width_of_the_river);
+        line(originX,originY,originX+1000,originY);
+        line(originX,originY-width_of_the_river,originX+1000,originY-width_of_the_river);
+      cleardevice();
 
-         while(time<50)
+       if(alpha>=(100*M_PI/180)){
+               line(midOfx,midOfy,xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat); //reach target according to initial velocity
+               line(xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat,xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat+arrow);
+               line(xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat,xcoordianate_According_to_vBoat+arrow,ycoordinate_According_to_vBoat+(arrow/2));
+
+              }
+        else if(alpha<=(80*M_PI/180))
+        {
+            line(midOfx,midOfy,xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat); //reach target according to initial velocity
+            line(xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat,xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat+arrow);
+            line(xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat,xcoordianate_According_to_vBoat-arrow,ycoordinate_According_to_vBoat+(arrow/2));
+
+
+      }
+    else
+    {
+        line(midOfx,midOfy,xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat); //reach target according to initial velocity
+        line(xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat,xcoordianate_According_to_vBoat-arrow,ycoordinate_According_to_vBoat+arrow/2);
+        line(xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat,xcoordianate_According_to_vBoat+arrow,ycoordinate_According_to_vBoat+(arrow/2));
+
+    }
+
+
+         while(time<=time_needed_to_cross_the_river)
           {
 
 
-                line(originX,originY,originX+600,originY);
-                line(originX,originY-width_of_the_river,originX+600,originY-width_of_the_river);
+                line(originX,originY,originX+1000,originY);
+                line(originX,originY-width_of_the_river,originX+1000,originY-width_of_the_river);
+
+
+                line(midOfx,midOfy,midOfx+arrowLength,midOfy);
+                //for arrow sing
+                line(midOfx+arrowLength,midOfy,midOfx+arrowLength-arrow,midOfy-arrow);
+                line(midOfx+arrowLength,midOfy,midOfx+arrowLength-arrow,midOfy+arrow);
+                circle(midOfx,midOfy,15);  // To identify starting point
+
 
                // printf("In while\n");
-               cleardevice();
+             //  cleardevice();
+
 
                 line(originX,originY,originX+600,originY);
                 line(originX,originY-width_of_the_river,originX+600,originY-width_of_the_river);
-        /*    if(time<=time_needed_to_collision)
-                 {
-                // line(originX,originY,originX+600,originY);
-                 distance1=u1*time;
-                 distance2=u2*time;
-                  line(originX,originY,originX+600,originY);
-                  if(m1>m2)
-                  {
-                 circle(originX+distance1,originY-20,20);
-                 circle(originX+distance2+distance,originY-15,15);
-                  }
-                  else if (m1<m2)
-                  {
-                       circle(originX+distance1,originY-15,15);
-                       circle(originX+distance2+distance,originY-20,20);
-                  }
-                  else
-                  {
-                       circle(originX+distance1,originY-20,20);
-                       circle(originX+distance2+distance,originY-20,20);
-                  }
-                 time+=time_increment;
-
-        }
-
-
-    */
 
 
            time+=time_increment;
                swapbuffers();
-               delay(10);
+               delay(20);
 
 
 
-                    }
+                }
+
          line(originX,originY,originX+600,originY);
          line(originX,originY-width_of_the_river,originX+600,originY-width_of_the_river);
 
@@ -413,10 +426,9 @@ void  vector_graph(double vBoat,double vFlow,double alpha,double width_of_the_ri
      line(originX,originY,originX+600,originY);
      line(originX,originY-width_of_the_river,originX+600,originY-width_of_the_river);
 
+
   return;
-}
-
-
+}SS
 
 //Function for Resultant velocity of boat
 double R_resultant(double vBoat,double vFlow,double alpha)
