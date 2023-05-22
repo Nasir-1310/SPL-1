@@ -7,16 +7,24 @@ using namespace std;
 #define MAX_Time 999
 #define time_increment 0.1
 #define river_magnificent 250
+int choice,known,operation;
+double Hmax,H,Rmax,g=-1,Tmax,alpha,v0,R,t,Vt=-1;
+
 double m1,m2,u1,u2,v1,v2;
 void print_Structure(string first,string second);
 double Tmaximum(double v0,double theta,double g);
 double Rmaximum(double v0,double theta,double g);
 double Hmaximum(double v0,double theta,double g);
 double conservation_of_momentum(double m1,double u1,double m2,double u2,double v,double m);
+double Veclocity_at_time_t(double v0,double alpha,double g,double t);
+
 
 double time_cross_river(double vBoat,double  alpha,double width_of_the_river);
 double R_resultant(double vBoat,double vFlow,double alpha);
 double  Angle_of_boat_with_respect_to_flow(double vBoat,double vFlow,double alpha);
+void   projectile_graph(double v0,double alpha,double g);
+
+
 
 
 
@@ -24,12 +32,139 @@ double  Angle_of_boat_with_respect_to_flow(double vBoat,double vFlow,double alph
 
 
 // Graph for projectile_Motion---------------------------------------------
-void   graph(double v0,double theta,double g)
+
+void projectile_Motion()
+{
+    print_Structure("Welcome to Dynamics world here you will find solution of your desire problem with visualization","  ");
+    print_Structure("Enter number of known parameter","1)Velocity(m/s) 2)Angle(with respect to Horizontal(Degree)) 3)Time(Second) 4)Gravitational Acceleration(m/s)");
+    int Number_of_parameter;
+ //   double Hmax,H,Rmax,g=-1,Tmax,alpha,v0,R,t,Vt=-1;
+     H=alpha=v0=R=Hmax=Rmax=Tmax=t=-1;
+  //  int choice,known;
+
+    scanf("%d",&Number_of_parameter);
+    known=Number_of_parameter;
+    while(known--)
+    {
+        if(v0==-1)
+            print_Structure("1. Initial velocity(m/s)","Press 1");
+        if(alpha==-1)
+            print_Structure("2. Angle(with respect to horizontal(Degree))","Press 2");
+        if(t==-1)
+            print_Structure("3. Time(Second)","Press 3");
+        if(g==-1)
+        {
+            print_Structure("4. Gravitational Acceleration(m/s^2)","Press 4");
+        }
+
+        scanf("%d",&choice);
+        if(choice==1)
+        {
+            printf("Enter Initial velocity(m/s)\n");
+            scanf("%lf",&v0);
+        }
+
+        else if(choice==2)
+        {
+            printf("Enter angle with respect to Horizontal(Degree)\n");
+            scanf("%lf",&alpha);
+            alpha=(M_PI*alpha)/180;
+        }
+        else if(choice==3)
+        {
+            printf("Enter time in which you want to see velocity(Second)\n ");
+            scanf("%lf",&t);
+        }
+        else if(choice==4)
+        {
+            printf("Enter Gravitational Acceleration(m/s^2)\n");
+            scanf("%lf",&g);
+        }
+
+
+    }
+    printf("What do you want to determine\n");
+    print_Structure("1. Maximum horizontal Range(Rmax)","Press 1");
+    print_Structure("2. Maximum Height(Hmax)","Press 2");
+    print_Structure("3. Time to reach Maximum height(Tmax)","Press 3");
+    print_Structure("4. Total Time(2Tmax)","Press 4");
+    print_Structure("5.Velocity at time T","press 6");
+
+
+
+    if(g==-1)
+        g=9.8;
+    scanf("%d",&operation);
+    if(operation==1)
+    {
+        Rmax= Rmaximum(v0,alpha,g);
+        if(Rmax!=0)
+        {
+        print_Structure("Used formula","Rmax=(((vo^2)*sin(2*alpha))/g)");
+        printf("Maximum height Rmax is : %lf\n",Rmax);
+        }
+    }
+    else if(operation==2)
+    {
+        Hmax=Hmaximum(v0,alpha,g);
+        if(Hmax!=0){
+        print_Structure("Used formula","Maximum Height = (vo^2 * sin^2((alpha))) / (2 * g)");
+        printf("Maximum height Hmax is : %lf\n",Hmax);
+        }
+
+    }
+    else if(operation==3)
+    {
+        Tmax= Tmaximum(v0,alpha,g);
+        if(Tmax!=0)
+        {
+        print_Structure("Used formula","Tmax=(vo*sin(alpha)/g)");
+        printf("Maximum Time  Tmax is : %lf\n",Tmax);
+        }
+    }
+    else if(operation==4)
+    {
+        Tmax=Tmaximum(2*v0,alpha,g);
+        if(Tmax!=0){
+        print_Structure("Used formula","Tmax=(2*vo*sin(alpha)/g)");
+        printf("Maximum Time  2*Tmax is : %lf\n",Tmax);
+        }
+    }
+    else if(operation==5)
+    {
+        Vt=Veclocity_at_time_t(v0,alpha,g,t);
+        if(Vt!=-1)
+        {
+            print_Structure("Used formula","Vt=Sqrt(Vx^2+Vy^2)");
+            printf("Velocity at time t is : %lf\n",Vt);
+        }
+    }
+    else{
+        printf("Invalid choice!\n");
+    }
+
+
+    //graph implementation
+    print_Structure("Are you want to visualize the graph", "if Yes press 1 Otherwise press 2");
+    int option;
+    scanf("%d",&option);
+    if(option ==1)
+        projectile_graph(v0,alpha,g);
+
+
+
+
+    return;
+}
+
+
+// Graph for projectile_Motion---------------------------------------------
+void   projectile_graph(double v0,double alpha,double g)
 {
 
-    if(v0==-1 && theta==-1 )
+    if(v0==-1 && alpha==-1 )
     {
-        printf("Not enough Information\nPlease give the value for v0(initial velocity) and theta(with respect to horizontal)\n");
+        printf("Not enough Information\nPlease give the value for v0(initial velocity) and alpha(with respect to horizontal)\n");
         return;
     }
     else if(v0==-1)
@@ -37,17 +172,17 @@ void   graph(double v0,double theta,double g)
         printf("Sorry ! v0(initial velocity) is not given\n");
         return;
     }
-    else if(theta==-1)
+    else if(alpha==-1)
     {
-        printf("Sorry theta(with respect to horizontal) is not given\n");
+        printf("Sorry alpha(with respect to horizontal) is not given\n");
         return;
     }
     else
     {
-          line(originX,originY,620,originY);
+
 
         double Ttotal;
-        Ttotal=Tmaximum(2*v0,theta,g);
+        Ttotal=Tmaximum(2*v0,alpha,g);
        // double t_half=Ttotal/2;
         double t=0;
 
@@ -59,99 +194,269 @@ void   graph(double v0,double theta,double g)
         scanf("%d",&option);
         if(option==1)
             printf("Time(t)\t Horizontal Range(R)\t Height(H)\n");
-        double Rmax=Rmaximum(v0,theta,g);
+        double Rmax=Rmaximum(v0,alpha,g);
 
 
         double xcoordinate,ycoordinate;
 
 
         //Arc to show angle
-        double angle_in_degree=((theta*180)/M_PI);
-         arc(originX,originY,0,angle_in_degree,50);
-         line(originX,originY,originX+70,originY-(70*atan(theta)));
+        double angle_in_degree=((alpha*180)/M_PI),distance_of_x=0,angle=alpha;
+        if(angle_in_degree<=70.0)
+        {
+            distance_of_x=70;
+        }
+         else if(angle_in_degree>70.0 and angle_in_degree<80.0)
+        {
+            distance_of_x=15;
+        }
+        else if(angle_in_degree>=80.0 and angle_in_degree<88.0)
+        {
+            distance_of_x=12;
+        }
+        else if(angle_in_degree>89.0 and angle_in_degree<=90.90)
+        {
+            angle=alpha-0.01745;
+            distance_of_x=1.5;
+        }
+        else
+        {
+            distance_of_x=50;
+        }
+
+
+
+
+
+         arc(originX,originY,0,angle_in_degree,60);
+        line(originX,originY,originX+distance_of_x,originY-(distance_of_x*tan(angle)));
+
+ // Draw the line for alpha
+    line(90, 480, 90, 525);
+
+    // Draw the arrow
+    line(90, 480, 95, 485);
+    line(90, 480, 85, 485);
+    line(90, 485, 95, 485);
+    line(90, 485, 85, 485);
+         // test font size
+    settextstyle(DEFAULT_FONT, HORIZ_DIR, 4);
+     // Convert alpha to a string
+    char projectileAngle[10],FHmax[]="Hmax = (v² * sin²(alpha)) / (2 * g)";
+    char height[50], horizontal[50],totaltime[50],velocity[50],halftime[50];
+
+    double printalpha=alpha*180/M_PI;
+    Hmax=Hmaximum(v0,alpha,g);
+
+    sprintf(projectileAngle, "%.1f°", printalpha);
+    sprintf(height,"Hmax=%.2lf",Hmax);
+    sprintf(horizontal,"Rmax=%.2lf",Rmax);
+    sprintf(halftime,"Tmax=%.2lf",Tmax);
+    sprintf(totaltime,"Tmax=%.2fl",2*Tmax);
+    sprintf(velocity,"Vt=%.2lf",Vt);
+
+    // Print the value of alpha at position (565, 565)
+    outtextxy(90, 550, projectileAngle);
+
+
+
+
 
         while(t<Ttotal)
         {
 
-            x=v0*cos(theta)*t;
-            y=(v0*sin(theta)*t)-(0.5*g*t*t);
+
+                    cleardevice();
+
+            x=v0*cos(alpha)*t;
+            y=(v0*sin(alpha)*t)-(0.5*g*t*t);
 
             y1=-y;
 
-               cleardevice();
+
 
 
            if(option==1)
                  printf("%lf     %lf     %lf\n",t,x,y);
-              //rectangle(60+x,350+y1,90+x,380+y1);
-            arc(originX,originY,0,angle_in_degree,50);
-            line(originX,originY,originX+70,originY-(70*tan(theta)));
 
-            line(originX,originY,620,originY);
+            arc(originX,originY,0,angle_in_degree,60);
+            line(originX,originY,originX+distance_of_x,originY-(distance_of_x*tan(angle)));
+
+            line(originX,originY,1000,originY);
             circle((x+originX),(y1+originY),12);
+
+         // Draw the line for theta
+    line(90, 480, 90, 535);
+
+    // Draw the arrow
+    line(90, 480, 95, 485);
+    line(90, 480, 85, 485);
+    line(90, 485, 95, 485);
+    line(90, 485, 85, 485);
+
+        outtextxy(90, 550, projectileAngle);
+
           //  putpixel(x+originX,y1+originY,WHITE);
 
 
 
             swapbuffers();
 
-
+           cleardevice();
             t+=time_increment;
-             cleardevice();
+
             delay(60);
 
         }
 
-        x=v0*cos(theta)*Ttotal;
-        y=(v0*sin(theta)*Ttotal)-(0.5*g*Ttotal*Ttotal);
-        y1=-y;
+        double finalpointofX =v0*cos(alpha)*Ttotal;
+        double finalpointofY=(v0*sin(alpha)*Ttotal)-(0.5*g*Ttotal*Ttotal);
+        finalpointofY= -finalpointofY;
+        circle((finalpointofX+originX),(finalpointofY+originY),12);
 
 
         if(option==1)
         printf("%lf     %lf     %lf\n",Ttotal,x,y);
 
 
+ // Draw the line for theta
+    line(90, 480, 90, 535);
 
-        line(originX,originY,620,originY);
+    // Draw the arrow
+    line(90, 480, 95, 485);
+    line(90, 480, 85, 485);
+    line(90, 485, 95, 485);
+    line(90, 485, 85, 485);
+
+    outtextxy(90, 550, projectileAngle);
+
+
+        line(originX,originY,1000,originY);
         //-----printing path-----------------
 
         t=0;
         while(t<=Ttotal)
         {
 
-            x=v0*cos(theta)*t;
-            y=(v0*sin(theta)*t)-(0.5*g*t*t);
+            x=v0*cos(alpha)*t;
+            y=(v0*sin(alpha)*t)-(0.5*g*t*t);
 
             y1=-y;
-           arc(originX,originY,0,angle_in_degree,50);
-            line(originX,originY,originX+70,originY-(70*tan(theta)));
+           arc(originX,originY,0,angle_in_degree,60);
+            line(originX,originY,originX+distance_of_x,originY-(distance_of_x*tan(angle)));
 
-            line(originX,originY,620,originY);
+            line(originX,originY,1000,originY);
             circle((x+originX),(y1+originY),2);
 
             putpixel(x+originX,y1+originY,YELLOW);
 
+
+
             swapbuffers();
             t+=time_increment;
-            delay(10);
+            delay(6);
 
         }
-         arc(originX,originY,0,angle_in_degree,50);
-         line(originX,originY,originX+70,originY-(70*atan(theta)));
-        circle(((v0*cos(theta)*Ttotal)+originX),((-(v0*sin(theta)*Ttotal)-(0.5*g*Ttotal*Ttotal))+originY),12);
 
+
+         swapbuffers();
+             settextstyle(DEFAULT_FONT, HORIZ_DIR, 2);
+              if(operation==1)
+            {
+                outtextxy(500, 30, "Used Formula :");
+                outtextxy(500, 50, "Rmax=(v^2*sin(2*alpha))/g");
+                outtextxy(500, 70, horizontal);
+            }
+
+         else  if(operation==2)
+            {
+                outtextxy(500, 30, "Used Formula :");
+                outtextxy(500, 50, "Hmax=(v^2*sin^2(alpha))/(2*g)");
+                outtextxy(500, 70, height);
+            }
+        else if(operation==3)
+            {
+                outtextxy(500, 30, "Used Formula :");
+                outtextxy(500, 50, "Tmax=(v*sin(alpha))/g");
+                outtextxy(500, 70, halftime);
+            }
+        else if(operation==4)
+            {
+                outtextxy(500, 30, "Used Formula :");
+                outtextxy(500, 50, "Hmax=(2*v*sin(alpha))/g");
+                outtextxy(500, 70, totaltime);
+            }
+        else if(operation==5)
+            {
+                outtextxy(500, 30, "Used Formula :");
+                outtextxy(500, 50, "v = sqrt(Vx^2 + Vy^2)");
+                outtextxy(500, 70, velocity);
+            }
+
+            line(originX,originY+15,(finalpointofX+originX),(originY+15));
+            outtextxy((originX+finalpointofX/2),originY+30,horizontal);
+            line(originX-15,originY,originX-15,originY-(Hmax));
+            double a=originX-10,b=originY-Hmax,c=originX+40,d=originY-Hmax;
+
+        // line for Hmax
+        line(a, b, c, d);
+        // arrow  for Hmax
+        line(a, b, a + 10, b + 10);
+        line(a, b, a +10, b -10);
+
+        outtextxy(c-20, d-30,height);
+
+
+
+
+              swapbuffers();
+
+   /*             outtextxy(100, 100, "Used Formula");
+
+         arc(originX,originY,0,angle_in_degree,60);
+         line(originX,originY,originX+distance_of_x,originY-(distance_of_x*atan(angle)));
+         circle((finalpointofX+originX),(finalpointofY+originY),12);
+
+
+// Draw the line for theta
+    line(90, 480, 90, 525);
+
+    // Draw the arrow
+    line(90, 480, 95, 485);
+    line(90, 480, 85, 485);
+    line(90, 485, 95, 485);
+    line(90, 485, 85, 485);
+    outtextxy(90, 530, projectileAngle);
+
+    printf("Operation=%d\n",operation);
+    if(operation==2)
+    {
+        //outtextxy(600,20,FormulaUsed);
+        outtextxy(100, 100, "Used Formula");
+
+    }
+*/
     }
     return;
 }
 
 
+    double Veclocity_at_time_t(double v0,double alpha,double g,double t)
+    {
+        double Vx=v0*cos(alpha);
+        double Vy=v0*sin(alpha)-g*t;
+
+        double V=sqrt(Vx*Vx+Vy*Vy);
+        return V;
+    }
+
 //Function for finding Tmax
-double Tmaximum(double v0,double theta,double g)
+double Tmaximum(double v0,double alpha,double g)
 {
 
-    if(v0==-1 && theta==-1 )
+    if(v0==-1 && alpha==-1 )
     {
-        printf("Not enough Information\nPlease give the value for v0(initial velocity) and theta(with respect to horizontal)\n");
+        printf("Not enough Information\nPlease give the value for v0(initial velocity) and alpha(with respect to horizontal)\n");
         return 0;
     }
     else if(v0==-1)
@@ -159,14 +464,14 @@ double Tmaximum(double v0,double theta,double g)
         printf("Sorry ! v0(initial velocity) is not given\n");
         return 0;
     }
-    else if(theta==-1)
+    else if(alpha==-1)
     {
-        printf("Sorry theta(with respect to horizontal) is not given\n");
+        printf("Sorry alpha(with respect to horizontal) is not given\n");
         return 0;
     }
     else
     {
-        double T_max=(v0*sin(theta))/g;
+        double T_max=(v0*sin(alpha))/g;
         // printf("Maximum Time  Tmax is : %lf\n",T_max);
         return  T_max;
 
@@ -174,11 +479,11 @@ double Tmaximum(double v0,double theta,double g)
     }
 }
 //Function for Rmax
-double Rmaximum(double v0,double theta,double g)
+double Rmaximum(double v0,double alpha,double g)
 {
-    if(v0==-1 && theta==-1 )
+    if(v0==-1 && alpha==-1 )
     {
-        printf("Not enough Information\nPlease give the value for v0(initial velocity) and theta(with respect to horizontal)\n");
+        printf("Not enough Information\nPlease give the value for v0(initial velocity) and alpha(with respect to horizontal)\n");
         return 0;
     }
     else if(v0==-1)
@@ -186,14 +491,14 @@ double Rmaximum(double v0,double theta,double g)
         printf("Sorry ! v0(initial velocity) is not given\n");
         return 0;
     }
-    else if(theta==-1)
+    else if(alpha==-1)
     {
-        printf("Sorry theta(with respect to horizontal) is not given\n");
+        printf("Sorry alpha(with respect to horizontal) is not given\n");
         return 0;
     }
     else
     {
-        double R_max=((v0*v0*sin(2*theta))/g);
+        double R_max=((v0*v0*sin(2*alpha))/g);
         // printf("Maximum height Rmax is : %lf\n",R_max);
 
         return  R_max;
@@ -205,12 +510,12 @@ double Rmaximum(double v0,double theta,double g)
 
 
 //Function for Hmax
-double Hmaximum(double v0,double theta,double g)
+double Hmaximum(double v0,double alpha,double g)
 {
 
-    if(v0==-1 && theta==-1 )
+    if(v0==-1 && alpha==-1 )
     {
-        printf("Not enough Information\nPlease give the value for v0(initial velocity) and theta(with respect to horizontal)\n");
+        printf("Not enough Information\nPlease give the value for v0(initial velocity) and alpha(with respect to horizontal)\n");
         return 0;
     }
     else if(v0==-1)
@@ -218,122 +523,21 @@ double Hmaximum(double v0,double theta,double g)
         printf("Sorry ! v0(initial velocity) is not given\n");
         return 0;
     }
-    else if(theta==-1)
+    else if(alpha==-1)
     {
-        printf("Sorry ! theta(with respect to horizontal) is not given\n");
+        printf("Sorry ! alpha(with respect to horizontal) is not given\n");
         return 0;
     }
     else
     {
-        double H_max=(v0*v0*pow(sin(theta),2)/(2*g));
-        // graph(v0,theta,g);
+        double H_max=(v0*v0*pow(sin(alpha),2)/(2*g));
+        // graph(v0,alpha,g);
         // printf("Maximum height Hmax is : %lf\n",H_max);
 
         return H_max;
 
 
     }
-}
-void projectile_Motion()
-{
-    print_Structure("Welcome to Dynamics world here you will find solution of your desire problem with visualization","  ");
-    print_Structure("Enter number of known parameter given below","1)Initial velocity(Vo) 2)Angle(with respect to Horizontal) 3)Time ");
-    int Number_of_parameter;
-    double Hmax,H,Rmax,g=9.8,Tmax,theta,v0,R,t;
-    H=theta=v0=R=Hmax=Rmax=Tmax=t=-1;
-    int choice,known;
-
-    scanf("%d",&Number_of_parameter);
-    known=Number_of_parameter;
-    while(known--)
-    {
-        if(v0==-1)
-            print_Structure("1. Initial velocity(m/s)","Press 1");
-        if(theta==-1)
-            print_Structure("2. Angle(with respect to horizontal)","Press 2");
-        if(t==-1)
-            print_Structure("3. Time","Press 3");
-
-        scanf("%d",&choice);
-        if(choice==1)
-        {
-            printf("Enter Initial velocity(v0)\n");
-            scanf("%lf",&v0);
-        }
-
-        else if(choice==2)
-        {
-            printf("Enter angle with respect to Horizontal\n");
-            scanf("%lf",&theta);
-            theta=(M_PI*theta)/180;
-        }
-        else if(choice==3)
-        {
-            printf("Enter time in which you want to see velocity\n ");
-            scanf("%lf",&t);
-        }
-
-
-    }
-    printf("What do you want to determine\n");
-    print_Structure("1. Maximum horizontal Range(Rmax)","Press 1");
-    print_Structure("2. Maximum Height(Hmax)","Press 2");
-    print_Structure("3. Time to reach Maximum height(Tmax)","Press 3");
-    print_Structure("4. Total Time(2Tmax)","Press 4");
-
-
-    int operation;
-    scanf("%d",&operation);
-    if(operation==1)
-    {
-        Rmax= Rmaximum(v0,theta,g);
-        if(Rmax!=0)
-        {
-        print_Structure("Used formula","Rmax=(((vo^2)*sin(2*theta))/g)");
-        printf("Maximum height Rmax is : %lf\n",Rmax);
-        }
-    }
-    else if(operation==2)
-    {
-        Hmax=Hmaximum(v0,theta,g);
-        if(Hmax!=0){
-        print_Structure("Used formula","Hmax=(vo^2*sin(theta)^2)/(2*g)");
-        printf("Maximum height Hmax is : %lf\n",Hmax);
-        }
-
-    }
-    else if(operation==3)
-    {
-        Tmax= Tmaximum(v0,theta,g);
-        if(Tmax!=0)
-        {
-        print_Structure("Used formula","Tmax=(vo*sin(theta)/g)");
-        printf("Maximum Time  Tmax is : %lf\n",Tmax);
-        }
-    }
-    else if(operation==4)
-    {
-        Tmax=Tmaximum(2*v0,theta,g);
-        if(Tmax!=0){
-        print_Structure("Used formula","Tmax=(2*vo*sin(theta)/g)");
-        printf("Maximum Time  2*Tmax is : %lf\n",Tmax);
-        }
-    }
-    else
-        printf("Invalid choice!\n");
-
-
-    //graph implementation
-    print_Structure("Are you want to visualize the graph", "if Yes press 1 Otherwise press 2");
-    int option;
-    scanf("%d",&option);
-    if(option ==1)
-        graph(v0,theta,g);
-
-
-
-
-    return;
 }
 
 
