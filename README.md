@@ -9,8 +9,11 @@ LearnPhysics is a Physics-based learning project. Its goal is to visualize the f
 
 
 **Step 1:** The user will enter the formula's required parameters.
+
 **Step 2:** This application analyzes the data.
+
 **Step 3:** It solves the required problem.
+
 **Step 3:** It shows a visualization of the problem using data.
 
 The following tasks will be performed by this application:
