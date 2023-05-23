@@ -555,15 +555,21 @@ void  vector_graph(double vBoat,double vFlow,double alpha,double width_of_the_ri
     if(vBoat<0 || vFlow<0 || alpha<0)
     {
         printf("Invalid Information! please try again later\n");
+        return;
     }
-   else if(vBoat<=0 and vFlow>=0 and alpha>0)
+   else if(vBoat<=0 and vFlow>=0 )
     {
         printf("Can't Cross The rives!Please try again\n");
+        return;
 
     }
-       else
+    else
     {
-        cleardevice();
+
+
+        //cleardevice();
+
+
 
         double resultant_V=0,theta=0;
         double midOfx=500,midOfy=originY,arrowLength=150,arrow=20;
@@ -576,11 +582,57 @@ void  vector_graph(double vBoat,double vFlow,double alpha,double width_of_the_ri
         time_needed_to_cross_the_river=time_cross_river(vBoat,alpha,width_of_the_river);
        // printf("Time to cross river %lf\n",time_needed_to_cross_the_river);
        // printf("-----------------------------------------------------------------------------------------------------\n");
+        setlinestyle(SOLID_LINE, 0, 4);
+
         line(originX,originY,originX+1000,originY);
         line(originX,originY-river_magnificent,originX+1000,originY-river_magnificent);
-      cleardevice();
+      //cleardevice();
 
-       if(alpha>=(100*M_PI/180)){
+        resultant_V=R_resultant(vBoat,vFlow,alpha);
+        theta=Angle_of_boat_with_respect_to_flow(vBoat,vFlow,alpha);
+        if(theta<=0)
+        {
+            theta=theta+M_PI;
+        }
+
+        double xcomponent=0,ycomponent=0,xcoordinate=midOfx,ycoordinate=midOfy;
+        xcomponent=resultant_V*cos(theta);
+        ycomponent=resultant_V*sin(theta);
+
+
+    // Convert alpha to a string
+    char str_angle[20], str_theta[20];
+    double print_alpha=alpha*180/M_PI,print_theta=theta*180/M_PI;
+    sprintf(str_angle, "%.1f°", print_alpha);
+    sprintf(str_theta, "%.1f°", print_theta);
+
+
+         while(time<time_needed_to_cross_the_river)
+          {
+
+
+
+           if(ycoordinate>midOfy-river_magnificent+50)
+           {
+               cleardevice();
+               xcoordinate+=xcomponent*0.5;
+                ycoordinate-=ycomponent*0.5;
+                readimagefile("image.jpg",xcoordinate-25,ycoordinate-50,xcoordinate+25,ycoordinate);
+                 //swapbuffers();
+
+
+                line(originX,originY,originX+1000,originY);
+                line(originX,originY-river_magnificent,originX+1000,originY-river_magnificent);
+
+                //line for flow to show arrow
+                line(midOfx,midOfy,midOfx+arrowLength,midOfy);
+                //for arrow sing
+                line(midOfx+arrowLength,midOfy,midOfx+arrowLength-arrow,midOfy-arrow);
+                line(midOfx+arrowLength,midOfy,midOfx+arrowLength-arrow,midOfy+arrow);
+
+                  arc(midOfx,midOfy,0,alpha*180/M_PI,80);
+                 arc(midOfx,midOfy,0,theta*180/M_PI,50);
+                   if(alpha>=(100*M_PI/180)){
                line(midOfx,midOfy,xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat); //reach target according to initial velocity
                line(xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat,xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat+arrow);
                line(xcoordianate_According_to_vBoat,ycoordinate_According_to_vBoat,xcoordianate_According_to_vBoat+arrow,ycoordinate_According_to_vBoat+(arrow/2));
@@ -602,82 +654,31 @@ void  vector_graph(double vBoat,double vFlow,double alpha,double width_of_the_ri
 
         }
 
-        resultant_V=R_resultant(vBoat,vFlow,alpha);
-        theta=Angle_of_boat_with_respect_to_flow(vBoat,vFlow,alpha);
-        if(theta<=0)
-        {
-            theta=theta+M_PI;
-        }
 
-        double xcomponent=0,ycomponent=0,xcoordinate=midOfx,ycoordinate=midOfy;
-        xcomponent=resultant_V*cos(theta);
-        ycomponent=resultant_V*sin(theta);
-
-        arc(midOfx,midOfy,0,alpha*180/M_PI,80);
-        arc(midOfx,midOfy,0,theta*180/M_PI,50);
-
-
-       // printf("xcomponent=%lf\n",xcomponent);
-        //printf("ycomponent=%lf\n",ycomponent);
-       // printf("resultantR=%lf  theta=%lf\n",resultant_V,theta*180/M_PI);
-
-       // Draw the line for theta
-    line(525, 485, 525, 540);
+          // Draw the line for theta
+    line(midOfx+25, midOfy-15, midOfx+25, midOfy+40);
 
     // Draw the arrow
-    line(525, 485, 530, 495);
-    line(525, 485, 520, 495);
-    line(525, 495, 530, 495);
-    line(525, 495, 520, 495);
+    line(midOfx+25, midOfy-15,midOfx+25-7 ,midOfy-15+7);
+    line(midOfx+25, midOfy-15, midOfx+25+7, midOfy-15+7);
+
     //Draw the line for alpha
-    line(565, 485, 565, 560);
+       line(midOfx+65,midOfy-15, midOfx+65,midOfy+60);
+
 
     // Draw the arrow
-    line(565, 485, 570, 495);
-    line(565, 485, 560, 495);
-    line(565, 495, 570, 495);
-    line(565, 495, 560, 495);
-
-    // test font size
-    settextstyle(DEFAULT_FONT, HORIZ_DIR, 2);
-
-    // Convert alpha to a string
-    char angle[10];
-    double printalpha=alpha*180/M_PI,print_theta=theta*180/M_PI;
-    sprintf(angle, "%.1f°", printalpha);
-    // Print the value of alpha at position (565, 565)
-    outtextxy(565, 565, angle);
-
-     sprintf(angle, "%.1f°", print_theta);
-
-    // Print the value of print_theta at position (525, 545)
-    outtextxy(495, 545, angle);
+    line(midOfx+65, midOfy-15, midOfx+65-7, midOfy-15+7);
+    line(midOfx+65, midOfy-15, midOfx+65+7, midOfy-15+7);
 
 
-         while(time<=time_needed_to_cross_the_river)
-          {
+                 outtextxy(490, 545, str_theta);
+                outtextxy(565, 565, str_angle);
+               // circle(midOfx,midOfy,15);  // To identify starting point
+               // setcolor(getbkcolor());
 
 
-                line(originX,originY,originX+1000,originY);
-                line(originX,originY-river_magnificent,originX+1000,originY-river_magnificent);
-
-
-                line(midOfx,midOfy,midOfx+arrowLength,midOfy);
-                //for arrow sing
-                line(midOfx+arrowLength,midOfy,midOfx+arrowLength-arrow,midOfy-arrow);
-                line(midOfx+arrowLength,midOfy,midOfx+arrowLength-arrow,midOfy+arrow);
-                circle(midOfx,midOfy,15);  // To identify starting point
-
-
-
-
-           if(ycoordinate>=midOfy-river_magnificent)
-           {
-                xcoordinate+=xcomponent*time;
-                ycoordinate-=ycomponent*time;
-
-
-             circle(xcoordinate,ycoordinate,8);
+            // circle(xcoordinate,ycoordinate,8);
+            swapbuffers();
 
              delay(100);
              //  cleardevice();
@@ -685,13 +686,20 @@ void  vector_graph(double vBoat,double vFlow,double alpha,double width_of_the_ri
            }
 
            time+=time_increment;
-               //swapbuffers();
+            //   swapbuffers();
+    }
+    xcoordinate=midOfx,ycoordinate=midOfy;
+    time=0;
+     while(ycoordinate>midOfy-river_magnificent+50)
+         {
+             swapbuffers();
+                 xcoordinate+=xcomponent*0.8;
+                ycoordinate-=ycomponent*0.8;
+                circle(xcoordinate,ycoordinate,1);
+                time+=time_increment;
+                swapbuffers();
 
-
-
-
-                }
-
+        }
          line(originX,originY,originX+900,originY);
          line(originX,originY-river_magnificent,originX+900,originY-river_magnificent);
 
@@ -699,12 +707,13 @@ void  vector_graph(double vBoat,double vFlow,double alpha,double width_of_the_ri
       //  printf("-------------------------------------------------------------------------------------------------------\n");
       }
 
-     line(originX,originY,originX+600,originY);
-     line(originX,originY-width_of_the_river,originX+600,originY-width_of_the_river);
+     line(originX,originY,originX+900,originY);
+     line(originX,originY-river_magnificent,originX+900,originY-river_magnificent);
 
 
   return;
 }
+
 
 //Function for Resultant velocity of boat
 double R_resultant(double vBoat,double vFlow,double alpha)
