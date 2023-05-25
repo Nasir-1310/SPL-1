@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+ #include <bits/stdc++.h>
 #include<graphics.h>
 #include "print_Structure.h"
 #include "projectile_Motion.h"
@@ -12,8 +12,7 @@ using namespace std;
 #define originY  500
 #define MAX_Time 999
 #define time_increment 0.1
-double m1,m2,u1,u2,v1,v2;
-
+//double m1,m2,u1,u2,v1,v2;
 
 int main()
 {
@@ -31,7 +30,7 @@ int main()
 
 
     int task=1;
-     initwindow(900,600,"SPL_01" );
+     initwindow(1000,600,"SPL_01" );
      setlinestyle(SOLID_LINE, 0, 4);
   //   int gd=DETECT,gm;
    // initgraph(&gd,&gm,"");
@@ -46,29 +45,31 @@ int main()
   //  freopen("file.txt","r", stdin);
     int choice;
 
-    printf("Choose Your an Option that you want to perform\n");//add more word for highlighting this project
+    printf("Choose an Option that you want to perform\n");//add more word for highlighting this project
 
     scanf("%d",&choice);
     if(choice==1)
     {
+        cleardevice();
         projectile_Motion();
     }
     else if(choice==2)
     {
+         cleardevice();
         vector_Analysis();
     }
     else if(choice==3)
     {
+        cleardevice();
         mechanics();
     }
     else
     {
         printf("Invalid choice! please try again\n");
-
+        cin.ignore();
     }
     print_Structure("Please choose an option","For continue press 1 Exit press 0");
     scanf("%d",&task);
-
 }
     getch();
     closegraph();
