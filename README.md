@@ -7,27 +7,34 @@ A brief description of what this project for:
 
 LearnPhysics is a Physics-based learning project. Its goal is to visualize the fundamental physics formulas and gives solution according to the parameters. The application generally uses these steps : 
 
-  1)User will enter the formula's required parameters.
 
-  2)This application analzes the data.
+**Step 1:** The user will enter the formula's required parameters.
 
-  3)It solves the required problem.
-  
-  4)It shows a visualization of the problem using data.
+**Step 2:** This application analyzes the data.
+
+**Step 3:** It solves the required problem.
+
+**Step 3:** It shows a visualization of the problem using data.
 
 The following tasks will be performed by this application:
 
  ```c++
- >>Projectile Motion
- >>Vector Analysis
- >>Mechanics
+ ➢** Projectile Motion**
+      ● Height of projection
+      ● Horizontal Distance
+      ● Velocity at any time
+      ● Time to travel
+➢ **Vector analysis**
+      ● Boat crossing river vector problem
+➢ **Mechanics**
+      ● Conservation of momentum
  ```
 
-Presented by: Md Nasir Uddin
+**Presented by:** **Md Nasir Uddin**
 
-Roll: BSSE-1310
+**Roll: BSSE-1310**
 
-Supervised by: Dr. Emon Kumar Dey
+**Supervised by**: **Dr. Emon Kumar Dey**
 
 
 
